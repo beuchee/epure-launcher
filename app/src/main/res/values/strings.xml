@@ -20,4 +20,25 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_license">Licence GPL v3</string>
     <string name="about_repo">Dépôt GitHub</string>
+    <string name="settings_favorites">Favoris</string>
+    <string name="settings_renamed">Apps renommées</string>
+    <string name="favorites_title">Favoris</string>
+    <string name="favorites_none">Aucun favori.</string>
+    <string name="favorites_space">Espace</string>
+    <string name="favorites_move_up">Monter</string>
+    <string name="favorites_move_down">Descendre</string>
+    <string name="favorites_remove">Retirer</string>
+    <string name="favorites_add_space">Ajouter un espace</string>
+    <string name="renamed_title">Apps renommées</string>
+    <string name="renamed_none">Aucune app renommée.</string>
+    <string name="renamed_original">Nom d\'origine : %1$s</string>
+    <string name="renamed_edit">Modifier</string>
+    <string name="renamed_reset">Réinitialiser</string>
+    <string name="settings_shortcuts">Raccourcis</string>
+    <string name="shortcuts_title">Raccourcis</string>
+    <string name="shortcut_camera">Appareil photo</string>
+    <string name="shortcut_phone">Téléphone</string>
+    <string name="shortcut_clock">Horloge</string>
+    <string name="shortcut_default">Par défaut</string>
+    <string name="shortcut_off">Désactivé</string>
 </resources>

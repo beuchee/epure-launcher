@@ -36,6 +36,15 @@ class AppRepository(context: Context) {
         }
     }
 
+    // Starts a system action (default shortcuts, DEC-0013); a missing app is ignored.
+    fun launchSystem(intent: Intent) {
+        try {
+            appContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        } catch (e: ActivityNotFoundException) {
+            // No app handles this action on the device.
+        }
+    }
+
     // Opens the system page of the app, where its information and uninstall button are (D31).
     fun openAppDetails(app: LaunchableApp) {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", app.packageName, null))

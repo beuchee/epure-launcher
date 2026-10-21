@@ -1,6 +1,7 @@
 package com.alain.epure.data
 
 import android.content.Context
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -14,17 +15,13 @@ import org.json.JSONObject
 
 private val Context.customizationStore by preferencesDataStore(name = "customization")
 
-// Favourites (in order) and custom names. App keys are "package/class" (see LaunchableApp.key).
+// Favourites (in order), custom names and shortcut choices. App keys are "package/class" (see LaunchableApp.key).
 class CustomizationStore(private val context: Context) {
 
     // Unreadable data falls back to defaults (SPEC § 9, robustness).
-    val favorites: Flow<List<String>> = context.customizationStore.data
-        .catch { emit(emptyPreferences()) }
-        .map { prefs -> parseFavorites(prefs[FAVORITES]) }
-
-    val renames: Flow<Map<String, String>> = context.customizationStore.data
-        .catch { emit(emptyPreferences()) }
-        .map { prefs -> parseRenames(prefs[RENAMES]) }
+    val favorites: Flow<List<String>> = read { parseList(it[FAVORITES]) }
+    val renames: Flow<Map<String, String>> = read { parseMap(it[RENAMES]) }
+    val shortcuts: Flow<Map<String, String>> = read { parseMap(it[SHORTCUTS]) }
 
     suspend fun saveFavorites(keys: List<String>) {
         context.customizationStore.edit { it[FAVORITES] = JSONArray(keys).toString() }
@@ -34,7 +31,16 @@ class CustomizationStore(private val context: Context) {
         context.customizationStore.edit { it[RENAMES] = JSONObject(names).toString() }
     }
 
-    private fun parseFavorites(json: String?): List<String> {
+    suspend fun saveShortcuts(choices: Map<String, String>) {
+        context.customizationStore.edit { it[SHORTCUTS] = JSONObject(choices).toString() }
+    }
+
+    private fun <T> read(parse: (Preferences) -> T): Flow<T> =
+        context.customizationStore.data
+            .catch { emit(emptyPreferences()) }
+            .map(parse)
+
+    private fun parseList(json: String?): List<String> {
         if (json == null) return emptyList()
         return try {
             val array = JSONArray(json)
@@ -44,17 +50,17 @@ class CustomizationStore(private val context: Context) {
         }
     }
 
-    private fun parseRenames(json: String?): Map<String, String> {
+    private fun parseMap(json: String?): Map<String, String> {
         if (json == null) return emptyMap()
         return try {
             val obj = JSONObject(json)
-            val names = mutableMapOf<String, String>()
+            val map = mutableMapOf<String, String>()
             val keys = obj.keys()
             while (keys.hasNext()) {
                 val key = keys.next()
-                names[key] = obj.getString(key)
+                map[key] = obj.getString(key)
             }
-            names
+            map
         } catch (e: JSONException) {
             emptyMap()
         }
@@ -63,5 +69,6 @@ class CustomizationStore(private val context: Context) {
     private companion object {
         val FAVORITES = stringPreferencesKey("favorites")
         val RENAMES = stringPreferencesKey("renames")
+        val SHORTCUTS = stringPreferencesKey("shortcuts")
     }
 }

@@ -240,3 +240,64 @@
   - Restent au jalon 2 : raccourcis (F-2.2), espaces vides (F-2.3), réordonnancement et suppression dans les Paramètres, écran « Apps renommées », nettoyage des entrées orphelines, guide (T-3).
   - Le menu d'appui long depuis un favori de l'accueil reste un point ouvert (T-2).
 - **Réversibilité** : facile (ajout de données dans DataStore, aucune migration nécessaire).
+
+---
+
+## DEC-0011 — Jalon 2 (première partie) : gestion des favoris, espaces, apps renommées, nettoyage
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : F-2.1, F-2.3, F-2.4 ; « Nettoyage silencieux » (ROADMAP jalon 2)
+- **Décision** :
+  - **Paramètres > Favoris** : chaque favori a les actions « Monter », « Descendre » et « Retirer » (boutons texte, sans glisser-déposer). Un bouton « Ajouter un espace » insère un espace vide (F-2.3).
+  - **Espaces** : un espace compte dans la limite de 7 éléments (D12). Un espace n'affiche rien sur l'accueil, sinon une hauteur vide de 48 dp.
+  - **Paramètres > Apps renommées** : liste des apps renommées avec leur nom d'origine. Actions « Modifier » (même saisie que le renommage) et « Réinitialiser ».
+  - **Nettoyage** : à chaque ouverture de la liste, les favoris et les noms dont l'app n'est plus installée sont supprimés. Le nettoyage n'a lieu que si la liste des apps n'est pas vide, pour ne jamais effacer des données sur une lecture incomplète.
+- **Justification** : les actions de gestion sont les plus sobres et les plus accessibles (texte, sans geste). Le nettoyage respecte F-2.1 (une app désinstallée disparaît sans erreur) et la robustesse de la spec (§ 9).
+- **Conséquences** : écrans `FavoritesScreen` et `RenamedAppsScreen` ; paramètres de Paramètres enrichis.
+- **Réversibilité** : facile (écrans et actions, pas de nouvelle donnée).
+
+---
+
+## DEC-0012 — Menu d'appui long depuis l'accueil ; guide de premier lancement reporté
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée (D27 : reporté ; D13 : en attente de précision)
+- **Décision(s) SPEC concernée(s)** : T-2 (menu depuis un favori de l'accueil), D27, D13
+- **Décision** :
+  - **T-2, menu depuis l'accueil** : un appui long sur un favori de l'accueil ouvre le même menu que dans la liste (Infos de l'app, Ajouter ou Retirer des favoris, Renommer).
+  - **D27 (guide de premier lancement)** : reporté. Ni le guide ni le nombre de cartes ne sont décidés pour l'instant ; il n'est pas implémenté.
+  - **D13 (raccourcis)** : en attente de précision. Alain a indiqué « icônes en bas » ; or D28 retient le texte seul. Les raccourcis seront implémentés en libellés texte en bas de l'accueil si Alain le confirme, sinon selon sa réponse.
+- **Justification** : choix d'Alain.
+- **Conséquences** : `AppActionsMenu` et le renommage sont partagés entre la liste et l'accueil.
+- **Réversibilité** : facile.
+
+---
+
+## DEC-0013 — Raccourcis de l'accueil : icônes simples (F-2.2, D13)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D13, F-2.2 ; dérogation partielle à D28 (texte seul) pour les seuls raccourcis
+- **Décision** :
+  - Trois raccourcis (appareil photo, téléphone, horloge) en bas de l'accueil, sous forme d'**icônes simples** (Material Symbols, Apache 2.0 : `photo_camera`, `call`, `schedule`). Aucune autre icône n'est ajoutée à l'interface.
+  - Par défaut : appareil photo (`MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA`), téléphone (`Intent.ACTION_DIAL`), horloge (`AlarmClock.ACTION_SHOW_ALARMS`).
+  - Personnalisation dans Paramètres > Raccourcis : chaque raccourci peut pointer vers une app installée, revenir au défaut, ou être désactivé.
+- **Justification** : choix d'Alain. Les icônes sont les seules de l'interface et restent sobres. Elles sont des ressources vectorielles du projet ; aucune dépendance n'est ajoutée.
+- **Conséquences** : `res/drawable/ic_shortcut_*.xml` (licence Apache 2.0 conservée dans chaque fichier). Libellés accessibles (TalkBack) dans `strings.xml`.
+- **Réversibilité** : facile (remplacer les trois fichiers ou retirer la rangée).
+
+---
+
+## DEC-0014 — Accès à la liste des apps : balayage de droite à gauche (remplace D5 de DEC-0003)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D5 (F-1.1, § 5)
+- **Décision** : le libellé « Apps » est supprimé de l'accueil. La liste des apps s'ouvre par un balayage de droite à gauche sur l'accueil. Le balayage vers le haut est remplacé.
+- **Justification** : choix d'Alain. Le geste est plus sobre qu'un libellé.
+- **Conséquences** :
+  - Un utilisateur qui ne connaît pas le geste ne voit plus d'indication à l'écran. Point à surveiller ; à décider si le libellé doit revenir.
+  - Les lecteurs d'écran (TalkBack) ne peuvent pas utiliser ce geste simplement : aucun accès alternatif à la liste n'est prévu. À revoir si le besoin apparaît.
+  - Les favoris, icônes et menus ne sont pas affectés.
+- **Réversibilité** : facile (une fonction de geste et un libellé).

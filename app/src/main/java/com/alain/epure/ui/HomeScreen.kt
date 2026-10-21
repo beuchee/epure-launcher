@@ -2,14 +2,19 @@ package com.alain.epure.ui
 
 import android.text.format.DateFormat
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,15 +22,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.alain.epure.R
+import com.alain.epure.domain.FavoriteSlot
 import com.alain.epure.domain.LaunchableApp
+import com.alain.epure.domain.Shortcut
+import com.alain.epure.domain.ShortcutChoice
 import com.alain.epure.ui.theme.AppNameStyle
 import com.alain.epure.ui.theme.ClockStyle
 import com.alain.epure.ui.theme.DateStyle
@@ -39,9 +47,12 @@ import java.util.Locale
 
 @Composable
 fun HomeScreen(
-    favorites: List<LaunchableApp>,
+    favorites: List<FavoriteSlot>,
+    shortcuts: Map<Shortcut, ShortcutChoice>,
     onOpenList: () -> Unit,
-    onLaunch: (LaunchableApp) -> Unit
+    onLaunch: (LaunchableApp) -> Unit,
+    onLongPress: (LaunchableApp) -> Unit,
+    onShortcut: (Shortcut) -> Unit
 ) {
     val swipeThreshold = with(LocalDensity.current) { 100.dp.toPx() }
 
@@ -49,10 +60,11 @@ fun HomeScreen(
         Modifier
             .fillMaxSize()
             .pointerInput(onOpenList) {
+                // Right-to-left swipe opens the app list (DEC-0014).
                 var total = 0f
-                detectVerticalDragGestures(
+                detectHorizontalDragGestures(
                     onDragStart = { total = 0f },
-                    onVerticalDrag = { _, dragAmount -> total += dragAmount },
+                    onHorizontalDrag = { _, dragAmount -> total += dragAmount },
                     onDragEnd = { if (total < -swipeThreshold) onOpenList() }
                 )
             }
@@ -67,29 +79,60 @@ fun HomeScreen(
                 color = TextSecondary
             )
         } else {
-            favorites.forEach { app ->
-                Text(
-                    text = app.label,
-                    style = AppNameStyle,
-                    color = TextPrimary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp)
-                        .clickable { onLaunch(app) }
-                        .padding(vertical = 4.dp)
-                )
+            favorites.forEach { slot ->
+                val app = slot.app
+                if (app == null) {
+                    // An empty space between favourites (F-2.3).
+                    Spacer(Modifier.height(48.dp))
+                } else {
+                    Text(
+                        text = app.label,
+                        style = AppNameStyle,
+                        color = TextPrimary,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 48.dp)
+                            .combinedClickable(
+                                onClick = { onLaunch(app) },
+                                onLongClick = { onLongPress(app) }
+                            )
+                            .padding(vertical = 4.dp)
+                    )
+                }
             }
         }
         Spacer(Modifier.weight(1f))
-        Text(
-            text = stringResource(R.string.home_apps),
-            style = LabelStyle,
-            color = TextSecondary,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .clickable(onClick = onOpenList)
-                .padding(16.dp)
-        )
+        Shortcuts(shortcuts = shortcuts, onShortcut = onShortcut)
+    }
+}
+
+// The three shortcut icons; a disabled shortcut is not shown (F-2.2, DEC-0013).
+@Composable
+private fun Shortcuts(shortcuts: Map<Shortcut, ShortcutChoice>, onShortcut: (Shortcut) -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Shortcut.entries.forEach { shortcut ->
+            if (shortcuts[shortcut] != ShortcutChoice.Off) {
+                val (icon, name) = when (shortcut) {
+                    Shortcut.CAMERA -> R.drawable.ic_shortcut_camera to R.string.shortcut_camera
+                    Shortcut.PHONE -> R.drawable.ic_shortcut_phone to R.string.shortcut_phone
+                    Shortcut.CLOCK -> R.drawable.ic_shortcut_clock to R.string.shortcut_clock
+                }
+                Icon(
+                    painter = painterResource(icon),
+                    contentDescription = stringResource(name),
+                    tint = TextPrimary,
+                    modifier = Modifier
+                        .size(64.dp)
+                        .padding(12.dp)
+                        .clickable { onShortcut(shortcut) }
+                )
+            }
+        }
     }
 }
 

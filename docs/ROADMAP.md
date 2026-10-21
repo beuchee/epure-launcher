@@ -84,25 +84,25 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 Décisions préalables : D12, D13, D14, D27 (et D8 si non tranchée).
 
 ### Tâches
-- [ ] Persistance des favoris (liste ordonnée, éléments « app » ou « espace ») (F-2.1, F-2.3)
-- [ ] Affichage des favoris sur l'accueil ; indication texte si aucun favori (F-2.1)
-- [ ] Menu d'appui long (T-2) : ajout de « Ajouter aux favoris / Retirer des favoris » et « Renommer »
-- [ ] Écran Paramètres « Favoris » : suppression, réordonnancement, insertion d'espaces vides (F-2.1, F-2.3)
-- [ ] Raccourcis appareil photo / téléphone / horloge avec intents par défaut (F-2.2)
-- [ ] Personnalisation de chaque raccourci (choix d'une app ou désactivation) (F-2.2)
-- [ ] Persistance des noms personnalisés (clé : composant + profil) (F-2.4)
-- [ ] Renommage : seul le nom personnalisé est affiché partout, y compris en titre du menu d'appui long (F-2.4)
-- [ ] Écran Paramètres « Apps renommées » : nom d'origine visible, modification, réinitialisation (F-2.4)
-- [ ] Nettoyage silencieux des favoris et noms orphelins (app désinstallée)
+- [x] Persistance des favoris (liste ordonnée, éléments « app » ou « espace ») (F-2.1, F-2.3)
+- [x] Affichage des favoris sur l'accueil ; indication texte si aucun favori (F-2.1)
+- [x] Menu d'appui long (T-2) : ajout de « Ajouter aux favoris / Retirer des favoris » et « Renommer »
+- [x] Écran Paramètres « Favoris » : suppression, réordonnancement, insertion d'espaces vides (F-2.1, F-2.3)
+- [x] Raccourcis appareil photo / téléphone / horloge avec intents par défaut (F-2.2)
+- [x] Personnalisation de chaque raccourci (choix d'une app ou désactivation) (F-2.2)
+- [x] Persistance des noms personnalisés (clé : composant + profil) (F-2.4)
+- [x] Renommage : seul le nom personnalisé est affiché partout, y compris en titre du menu d'appui long (F-2.4)
+- [x] Écran Paramètres « Apps renommées » : nom d'origine visible, modification, réinitialisation (F-2.4)
+- [x] Nettoyage silencieux des favoris et noms orphelins (app désinstallée)
 - [ ] Guide de premier lancement, si D27 le retient : 3 à 5 cartes texte propres à Épure, « Passer », affichage unique, relance depuis les Paramètres (T-3)
 
 ### Liste de contrôle sur le téléphone
 - [ ] Favoris, ordre et espaces conservés après redémarrage du téléphone
 - [ ] App favorite désinstallée → disparaît sans erreur
-- [ ] Chaque raccourci ouvre la bonne app ; un raccourci personnalisé pointe bien vers l'app choisie
-- [ ] App renommée : nom personnalisé dans la liste, les favoris, le menu et la recherche ; nom d'origine uniquement dans les Paramètres
+- [x] Chaque raccourci ouvre la bonne app ; un raccourci personnalisé pointe bien vers l'app choisie
+- [x] App renommée : nom personnalisé dans la liste, les favoris, le menu et la recherche ; nom d'origine uniquement dans les Paramètres
 - [ ] Renommage conservé après mise à jour de l'app renommée (Play Store)
-- [ ] Réinitialisation → nom système restauré
+- [x] Réinitialisation → nom système restauré
 - [ ] Guide (si retenu) : affiché une seule fois ; « Passer » fonctionne ; relance possible
 
 **Validation** : accueil personnalisé utilisé au quotidien pendant une semaine.
