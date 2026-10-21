@@ -201,7 +201,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Champ de recherche minimal (ligne soulignée) en haut de la liste. Texte seul, sans loupe (D28, DEC-0003).
 - Clavier ouvert automatiquement à l'ouverture de la liste (D7, DEC-0003).
 - Filtrage à chaque frappe, insensible à la casse et aux accents (« eclair » trouve « Éclair »), correspondance sur le début de mot puis sur une sous-chaîne.
-- **[À DÉCIDER (D8)]** Recherche aussi sur le nom d'origine d'une app renommée (pratique) ou uniquement sur le nom personnalisé (cohérent avec F-2.4, où le nom d'origine n'apparaît que dans les Paramètres).
+- Recherche sur le nom personnalisé seul (D8, DEC-0010).
 - Pas de lancement automatique quand un seul résultat subsiste (rapide, mais source de lancements involontaires ; D7, DEC-0003).
 - Touche « Entrée » du clavier : lance le premier résultat.
 - Aucun résultat : message « Aucune app » ; pas de repli automatique vers une recherche web ni d'ouverture de navigateur.
@@ -226,11 +226,11 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 
 ### Jalon 2 — Personnalisation de l'accueil
 
-#### F-2.1 Favoris
+#### F-2.1 Favoris (jalon 1, DEC-0010)
 - Liste ordonnée d'apps affichées en texte sur l'accueil, sous l'horloge.
 - Ajout depuis l'appui long dans la liste des apps (T-2) ; suppression et réordonnancement dans les Paramètres.
 - Accueil sans favori : courte indication texte (ex. « Appui long sur une app pour l'ajouter ici »), sans encadré ni animation.
-- **[À DÉCIDER (D12)]** Nombre maximal (suggestion : 7, pour préserver la sobriété).
+- Nombre maximal : 7 (D12, DEC-0010).
 - Si une app favorite est désinstallée, elle disparaît de l'accueil sans erreur.
 
 #### F-2.2 Raccourcis personnalisables
@@ -243,12 +243,12 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Possibilité d'insérer des séparateurs vides entre les favoris pour aérer la disposition.
 - Gestion dans l'écran de réordonnancement des favoris (un « espace » est un élément de la liste).
 
-#### F-2.4 Renommage des apps
+#### F-2.4 Renommage des apps (jalon 1, DEC-0010)
 - Depuis l'appui long (T-2) ou les Paramètres : définir un nom personnalisé.
 - **Seul le nom personnalisé** apparaît dans la liste, les favoris, le titre du menu d'appui long et la recherche (sous réserve de D8).
 - Le **nom d'origine** n'est visible que dans les Paramètres d'Épure (écran « Apps renommées »), où le nom personnalisé est modifiable ou réinitialisable à tout moment.
 - Clé de stockage : composant de l'activité (paquet + classe) + profil utilisateur, pour éviter les collisions.
-- Nom personnalisé vide refusé ; longueur maximale **[À DÉCIDER (D14)]** (suggestion : 30 caractères).
+- Nom personnalisé vide refusé ; longueur maximale : **30 caractères** (D14, DEC-0010).
 
 *Critères* : le renommage survit au redémarrage du téléphone et à la mise à jour de l'app renommée ; la réinitialisation restaure le nom système.
 

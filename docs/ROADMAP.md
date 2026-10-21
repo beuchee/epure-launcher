@@ -54,6 +54,8 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 - [x] Écran de recherche branché sur la liste : champ minimal, clavier selon D7, message « Aucune app », aucune ouverture web (F-1.4)
 - [ ] Index alphabétique, si D25 le retient (non retenu, DEC-0003) : fonction pure de calcul des initiales + tests unitaires, puis composant (F-1.6)
 - [x] Menu d'appui long (T-2), version jalon 1 : « Infos de l'app » seule (« Désinstaller » retiré, DEC-0009) ; titre = nom affiché
+- [x] Favoris depuis le menu d'appui long, affichés sous l'horloge, maximum 7 (F-2.1, DEC-0010)
+- [x] Renommage depuis le menu d'appui long, 30 caractères, réinitialisation (F-2.4, DEC-0010)
 - [x] Écran Paramètres (accès selon D6) + « Changer de launcher » (`ACTION_HOME_SETTINGS`, repli `ACTION_MANAGE_DEFAULT_APPS_SETTINGS`) + « À propos » avec lien vers le dépôt `epure-launcher` (F-1.5)
 
 ### Liste de contrôle sur le téléphone

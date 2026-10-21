@@ -220,3 +220,23 @@
   - Aucun paramètre de permission n'est modifié.
   - Le texte explicatif était le seul moyen d'expliquer pourquoi Épure ne quitte pas lui-même : ce libellé doit être compris sans lui. Un point à surveiller sur le téléphone.
 - **Réversibilité** : facile (libellés et une ligne de menu).
+
+---
+
+## DEC-0010 — Favoris et renommage avancés au jalon 1 (F-2.1 et F-2.4)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : F-2.1, F-2.4 (jalon 2 à l'origine), D8, D12, D14 ; T-2 (actions « Ajouter aux favoris », « Renommer »)
+- **Contexte** : Alain demande ces deux fonctions dès le jalon 1, depuis le menu d'appui long.
+- **Décision** :
+  - **Favoris (F-2.1)** : ajout et retrait depuis le menu d'appui long (« Ajouter aux favoris » / « Retirer des favoris »). Affichage en liste sous l'horloge. Maximum **7** (D12). Ordre d'ajout ; le réordonnancement reste au jalon 2. Si aucun favori : indication « Appui long sur une app pour l'ajouter ici ». Une app désinstallée disparaît de l'accueil sans erreur.
+  - **Renommage (F-2.4)** : « Renommer » depuis le menu d'appui long ouvre une saisie. Longueur maximale **30** caractères (D14). Nom vide refusé. Le nom personnalisé remplace le nom d'origine partout : liste, favoris, titre du menu et recherche. « Réinitialiser le nom » restaure le nom système depuis la même saisie. L'écran Paramètres « Apps renommées » reste au jalon 2.
+  - **Recherche (D8)** : sur le nom personnalisé seul.
+  - **Stockage** : DataStore (D2), réglages en JSON (`org.json`, fourni par Android, aucune dépendance ajoutée). Clé d'une app : paquet et classe ; le profil utilisateur n'est pas pris en compte, comme pour D4.
+- **Justification** : demande explicite d'Alain. Ces fonctions n'exigent pas de nouvelle dépendance ni de permission.
+- **Conséquences** :
+  - Jalon 1 à revalider pour ces deux fonctions.
+  - Restent au jalon 2 : raccourcis (F-2.2), espaces vides (F-2.3), réordonnancement et suppression dans les Paramètres, écran « Apps renommées », nettoyage des entrées orphelines, guide (T-3).
+  - Le menu d'appui long depuis un favori de l'accueil reste un point ouvert (T-2).
+- **Réversibilité** : facile (ajout de données dans DataStore, aucune migration nécessaire).

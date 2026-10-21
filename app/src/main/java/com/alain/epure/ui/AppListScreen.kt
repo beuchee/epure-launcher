@@ -1,6 +1,8 @@
 package com.alain.epure.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,16 +24,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.foundation.clickable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.alain.epure.R
+import com.alain.epure.domain.Customization
 import com.alain.epure.domain.LaunchableApp
 import com.alain.epure.ui.theme.AppNameStyle
 import com.alain.epure.ui.theme.LabelStyle
@@ -42,9 +45,13 @@ import com.alain.epure.ui.theme.TextSecondary
 fun AppListScreen(viewModel: AppsViewModel, onOpenSettings: () -> Unit) {
     val query by viewModel.query.collectAsState()
     val results by viewModel.results.collectAsState()
+    val favorites by viewModel.favorites.collectAsState()
+    val context = LocalContext.current
+    val favoritesFull = stringResource(R.string.favorites_full, Customization.MAX_FAVORITES)
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
     var selectedApp by remember { mutableStateOf<LaunchableApp?>(null) }
+    var renamingApp by remember { mutableStateOf<LaunchableApp?>(null) }
 
     // The search field is focused and the keyboard opens as soon as the list appears.
     LaunchedEffect(Unit) {
@@ -94,7 +101,7 @@ fun AppListScreen(viewModel: AppsViewModel, onOpenSettings: () -> Unit) {
         }
 
         LazyColumn(Modifier.weight(1f)) {
-            items(results, key = { "${it.packageName}/${it.className}" }) { app ->
+            items(results, key = { it.key }) { app ->
                 Text(
                     text = app.label,
                     style = AppNameStyle,
@@ -125,11 +132,37 @@ fun AppListScreen(viewModel: AppsViewModel, onOpenSettings: () -> Unit) {
     selectedApp?.let { app ->
         AppActionsMenu(
             app = app,
+            isFavorite = favorites.any { it.key == app.key },
             onDismiss = { selectedApp = null },
             onOpenDetails = {
                 viewModel.openAppDetails(app)
                 selectedApp = null
+            },
+            onToggleFavorite = {
+                if (!viewModel.toggleFavorite(app)) {
+                    Toast.makeText(context, favoritesFull, Toast.LENGTH_SHORT).show()
+                }
+                selectedApp = null
+            },
+            onRename = {
+                renamingApp = app
+                selectedApp = null
             }
+        )
+    }
+
+    renamingApp?.let { app ->
+        RenameDialog(
+            app = app,
+            onSave = { name ->
+                viewModel.rename(app, name)
+                renamingApp = null
+            },
+            onReset = {
+                viewModel.resetName(app)
+                renamingApp = null
+            },
+            onDismiss = { renamingApp = null }
         )
     }
 }

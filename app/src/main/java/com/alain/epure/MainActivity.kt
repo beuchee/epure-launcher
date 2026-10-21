@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import com.alain.epure.data.AppRepository
+import com.alain.epure.data.CustomizationStore
 import com.alain.epure.data.SettingsStore
 import com.alain.epure.ui.AppsViewModel
 import com.alain.epure.ui.EpureApp
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
     private val homeRoleRequest = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
     private val settings by lazy { SettingsStore(this) }
     private val appsViewModel: AppsViewModel by viewModels {
-        AppsViewModel.factory(AppRepository(applicationContext))
+        AppsViewModel.factory(AppRepository(applicationContext), CustomizationStore(applicationContext))
     }
     private var screen by mutableStateOf(Screen.HOME)
 

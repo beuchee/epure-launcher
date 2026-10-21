@@ -10,8 +10,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.alain.epure.R
@@ -21,9 +21,16 @@ import com.alain.epure.ui.theme.Black
 import com.alain.epure.ui.theme.TextPrimary
 import com.alain.epure.ui.theme.TextSecondary
 
-// Long-press menu on an app (T-2). Only « Infos de l'app » is shown at jalon 1 (DEC-0009).
+// Long-press menu on an app (T-2): info, favourite, rename (DEC-0003, DEC-0009, DEC-0010).
 @Composable
-fun AppActionsMenu(app: LaunchableApp, onDismiss: () -> Unit, onOpenDetails: () -> Unit) {
+fun AppActionsMenu(
+    app: LaunchableApp,
+    isFavorite: Boolean,
+    onDismiss: () -> Unit,
+    onOpenDetails: () -> Unit,
+    onToggleFavorite: () -> Unit,
+    onRename: () -> Unit
+) {
     val shape = RoundedCornerShape(16.dp)
 
     Dialog(onDismissRequest = onDismiss) {
@@ -47,6 +54,20 @@ fun AppActionsMenu(app: LaunchableApp, onDismiss: () -> Unit, onOpenDetails: () 
             ActionRow(
                 text = AnnotatedString(stringResource(R.string.action_app_info)),
                 onClick = onOpenDetails,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            ActionRow(
+                text = AnnotatedString(
+                    stringResource(
+                        if (isFavorite) R.string.action_favorite_remove else R.string.action_favorite_add
+                    )
+                ),
+                onClick = onToggleFavorite,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            ActionRow(
+                text = AnnotatedString(stringResource(R.string.action_rename)),
+                onClick = onRename,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
         }

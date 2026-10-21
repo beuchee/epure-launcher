@@ -3,7 +3,16 @@
     <string name="home_apps">Apps</string>
     <string name="search_hint">Rechercher</string>
     <string name="no_app_found">Aucune app</string>
+    <string name="favorites_empty">Appui long sur une app pour l\'ajouter ici</string>
+    <string name="favorites_full">Maximum %1$d favoris</string>
     <string name="action_app_info">Infos de l\'app</string>
+    <string name="action_favorite_add">Ajouter aux favoris</string>
+    <string name="action_favorite_remove">Retirer des favoris</string>
+    <string name="action_rename">Renommer</string>
+    <string name="rename_title">Nouveau nom</string>
+    <string name="rename_save">Valider</string>
+    <string name="rename_reset">Réinitialiser le nom</string>
+    <string name="rename_cancel">Annuler</string>
     <string name="settings_open">Paramètres</string>
     <string name="settings_title">Paramètres</string>
     <string name="quit_epure">Changer de launcher</string>

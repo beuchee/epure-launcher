@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.alain.epure.ui.theme.Black
 
@@ -16,6 +18,8 @@ enum class Screen { HOME, APPS, SETTINGS }
 
 @Composable
 fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) -> Unit) {
+    val favorites by viewModel.favorites.collectAsState()
+
     LaunchedEffect(screen) {
         if (screen != Screen.APPS) viewModel.clearQuery()
     }
@@ -32,7 +36,11 @@ fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) 
             .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
         when (screen) {
-            Screen.HOME -> HomeScreen(onOpenList = { onScreenChange(Screen.APPS) })
+            Screen.HOME -> HomeScreen(
+                favorites = favorites,
+                onOpenList = { onScreenChange(Screen.APPS) },
+                onLaunch = viewModel::launch
+            )
             Screen.APPS -> AppListScreen(
                 viewModel = viewModel,
                 onOpenSettings = { onScreenChange(Screen.SETTINGS) }

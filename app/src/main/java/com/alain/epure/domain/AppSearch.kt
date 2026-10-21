@@ -6,7 +6,10 @@ data class LaunchableApp(
     val label: String,
     val packageName: String,
     val className: String
-)
+) {
+    // Stable identifier of the app in this profile: used for favourites and custom names.
+    val key: String get() = "$packageName/$className"
+}
 
 // Pure search and sort logic: no Android dependency, covered by unit tests.
 object AppSearch {
