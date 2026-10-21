@@ -68,7 +68,7 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 - [x] Appui long : menu lisible ; « Infos de l'app » ouvre la bonne fiche (« Désinstaller » retiré, DEC-0009)
 - [x] Heure juste à la minute, y compris après 1 h de veille
 - [x] Taille de police système agrandie : affichage lisible, sans texte tronqué gênant
-- [ ] TalkBack : liste, index et menu lisibles
+- [x] TalkBack : liste, index et menu lisibles
 - [x] « Changer de launcher » → retour à One UI Home en deux actions au plus ([À VÉRIFIER] sous One UI 8.0)
 - [x] « À propos » : nom, version, licence et lien vers le dépôt corrects
 - [x] Rotation de l'écran / mode multifenêtre : pas de plantage
