@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Épure</string>
+    <string name="home_apps">Apps</string>
+    <string name="search_hint">Rechercher</string>
+    <string name="no_app_found">Aucune app</string>
+    <string name="action_app_info">Infos de l\'app</string>
+    <string name="settings_open">Paramètres</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="quit_epure">Changer de launcher</string>
+    <string name="about_title">À propos</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_license">Licence GPL v3</string>
+    <string name="about_repo">Dépôt GitHub</string>
 </resources>

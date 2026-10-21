@@ -88,18 +88,18 @@ Conclusion : **aucun conflit pour un usage personnel et pour le dépôt GitHub.*
 | Accueil | Horloge, date, favoris, raccourcis | 1 (base), 2 (favoris, raccourcis) |
 | Liste des apps / recherche | Champ de recherche, liste texte de toutes les apps, index alphabétique (selon D25), accès aux Paramètres | 1 |
 | Menu d'appui long | Actions sur une app (T-2) | 1, enrichi aux jalons 2 et 4 |
-| Paramètres | Réglages d'Épure, « Quitter Épure » | 1, enrichi à chaque jalon |
+| Paramètres | Réglages d'Épure, « Changer de launcher » | 1, enrichi à chaque jalon |
 | Écran d'autorisation | Modèle commun pour chaque permission spéciale (T-1) | 3, réutilisé aux jalons 4 et 5 |
 | Guide de premier lancement | Quelques conseils d'usage, une seule fois (T-3, selon D27) | 2 |
 | Statistiques | Temps par app, nombre d'ouvertures | 3 |
 | Choix de la durée | Avant ouverture d'une app avec minuteur | 4 |
 | Écran « Temps écoulé » / « App bloquée » | Affiché quand une app est fermée ou bloquée | 4 |
 
-**[À DÉCIDER (D5)] — Navigation entre accueil et liste des apps** : balayage vers le haut depuis l'accueil, libellé texte (« Apps »), ou les deux. La référence utilise le balayage vers le haut, qui ouvre directement la recherche. Recommandation : balayage vers le haut ouvrant la liste avec le champ de recherche actif, plus un libellé discret pour la découvrabilité.
+**Navigation entre accueil et liste des apps (D5, DEC-0003)** : balayage vers le haut depuis l'accueil, ouvrant la liste avec le champ de recherche actif, plus un libellé discret « Apps » en bas de l'accueil.
 
-**[À DÉCIDER (D6)] — Accès aux Paramètres** : appui long sur l'accueil (convention des launchers), entrée dans la liste des apps, ou les deux. La référence place l'accès aux paramètres sur l'écran de la liste des apps (coin inférieur droit).
+**Accès aux Paramètres (D6, DEC-0003)** : depuis la liste des apps, coin inférieur droit. Pas d'appui long sur l'accueil au jalon 1.
 
-**[À DÉCIDER (D28)] — Pictogrammes d'interface** : le principe « texte seul » exclut les icônes d'applications. Reste à décider si l'interface d'Épure elle-même (loupe, paramètres) utilise quelques pictogrammes Material Symbols (licence Apache 2.0, compatible) ou uniquement des libellés texte. La référence utilise une loupe et une roue dentée.
+**Pictogrammes d'interface (D28, DEC-0003)** : texte seul, sans pictogramme (ni loupe ni roue dentée).
 
 ## 5 bis. Référence visuelle — analyse des captures
 
@@ -144,8 +144,8 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 *Critères* : refuser l'autorisation désactive seulement la fonction concernée ; accorder puis revenir dans Épure active la fonction sans redémarrage.
 
 #### T-2 Menu d'appui long sur une app
-- Fenêtre texte sur fond noir, liseré fin clair, titre = nom affiché de l'app (nom personnalisé s'il existe), séparateur, puis actions en liste ; arrière-plan assombri ; fermeture par Retour ou toucher hors de la fenêtre. **[À DÉCIDER]** fenêtre centrée (comme la référence) ou feuille ancrée en bas d'écran (plus accessible au pouce).
-- Contenu **[À DÉCIDER (D9)]** — proposition, chaque action n'apparaissant qu'à partir du jalon qui l'implémente :
+- Fenêtre texte sur fond noir, liseré fin clair, titre = nom affiché de l'app (nom personnalisé s'il existe), séparateur, puis actions en liste ; arrière-plan assombri ; fermeture par Retour ou toucher hors de la fenêtre. Fenêtre centrée, comme la référence (DEC-0005).
+- Contenu (D9, DEC-0003, puis DEC-0009 pour le jalon 1 : « Infos de l'app » seule) — chaque action n'apparaissant qu'à partir du jalon qui l'implémente :
 
 | Action proposée | Jalon | Remarque |
 |---|---|---|
@@ -154,7 +154,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 | Minuteur (interrupteur « avec minuteur ») | 4 | F-4.1 ; grisé avec explication si le service d'accessibilité est inactif |
 | Bloquer… | 4 | F-4.3 ; grisé si le service d'accessibilité est inactif |
 | Infos de l'app | 1 | Ouvre la fiche système (`Settings.ACTION_APPLICATION_DETAILS_SETTINGS`) |
-| Désinstaller | 1 | Selon D31 |
+| Désinstaller | — | Retiré (DEC-0009) : passer par « Infos de l'app » |
 
 - Exclus : « Masquer » (fonction écartée), « Déplacer vers un dossier » (non retenue).
 - Une action indisponible (permission absente) reste visible mais grisée, avec un appui qui ouvre l'écran d'autorisation (T-1).
@@ -164,7 +164,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 
 #### T-3 Guide de premier lancement
 - **[À DÉCIDER (D27)]** : à implémenter ou non.
-- Si retenu : 3 à 5 cartes de texte au plus, affichées une seule fois, ignorables (« Passer »), sans animation, avec des textes propres à Épure. Thèmes possibles : chercher l'app voulue plutôt que parcourir la liste ; choisir ses favoris avec soin ; appui long pour les actions ; où se trouvent les Paramètres et « Quitter Épure ».
+- Si retenu : 3 à 5 cartes de texte au plus, affichées une seule fois, ignorables (« Passer »), sans animation, avec des textes propres à Épure. Thèmes possibles : chercher l'app voulue plutôt que parcourir la liste ; choisir ses favoris avec soin ; appui long pour les actions ; où se trouvent les Paramètres et « Changer de launcher ».
 - Le guide peut être relancé depuis les Paramètres.
 
 ### Jalon 1 — Launcher de base
@@ -183,43 +183,43 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Tri alphabétique, insensible à la casse et aux accents, sur le nom affiché (nom personnalisé s'il existe, voir F-2.4).
 - Épure lui-même n'apparaît pas dans la liste.
 - Mise à jour automatique à l'installation, la désinstallation ou la mise à jour d'une app.
-- Présentation : une app par ligne, nom seul, grande taille de police et interligne généreux (cible tactile d'au moins 48 dp), marge gauche, texte blanc sur noir. Tailles en `sp` (respect du réglage de taille de police système). **[À DÉCIDER]** valeur de la taille de base (la référence utilise une taille nettement supérieure au texte courant). Un nom trop long passe à la ligne plutôt que d'être tronqué.
+- Présentation : une app par ligne, nom seul, grande taille de police et interligne généreux (cible tactile d'au moins 48 dp), marge gauche, texte blanc sur noir. Tailles en `sp` (respect du réglage de taille de police système). Taille de base : 32 sp, soit deux fois le texte courant de l'app (DEC-0006). Un nom trop long passe à la ligne plutôt que d'être tronqué.
 - Appui court : lance l'app. Appui long : menu d'actions (T-2).
-- **[À DÉCIDER (D4)]** Profil professionnel et Dossier sécurisé Samsung : afficher leurs apps (avec mention distinctive) ou les ignorer.
+- Profil professionnel et Dossier sécurisé Samsung : **ignorés au jalon 1** (D4, DEC-0003).
 
 *Critères* : toutes les apps lançables apparaissent ; une app installée apparaît sans redémarrer Épure ; une app désinstallée disparaît.
 
 #### F-1.3 Horloge et date
 - Heure (format 24 h ou 12 h selon le réglage système) en très grande taille et graisse légère, centrée dans le haut de l'accueil ; date en toutes lettres, en français, sans l'année, en dessous (ex. « mercredi 21 octobre » **[À DÉCIDER : format exact]**).
 - Mise à jour à la minute, sans service ni minuteur permanent (abonnement à `ACTION_TIME_TICK` uniquement quand l'écran est visible, ou équivalent Compose).
-- Appui sur l'horloge : ouvre l'app Horloge (voir F-2.2). **[À DÉCIDER (D10)]** Appui sur la date : ouvre l'agenda, ou rien.
-- **[À DÉCIDER (D26)]** Indicateur discret autour ou sous l'horloge (ex. arc ou trait proportionnel au temps d'écran du jour). Non prévu par défaut ; s'il est retenu, il dépend du jalon 3 (statistiques) et n'est en aucun cas une limite quotidienne (fonction écartée).
+- Appui sur l'horloge : ouvre l'app Horloge (voir F-2.2). Appui sur la date : sans effet (D10, DEC-0003).
+- Emplacement sous l'horloge **réservé au jalon 1, sans affichage** (D26, DEC-0003). **[À DÉCIDER (D26)]** : indicateur discret autour ou sous l'horloge (ex. arc ou trait proportionnel au temps d'écran du jour), oui ou non, à trancher au jalon 3 ; il ne sera en aucun cas une limite quotidienne (fonction écartée).
 
 *Critères* : l'heure change à la minute exacte ; elle reste juste après mise en veille prolongée et changement de fuseau horaire.
 
 #### F-1.4 Recherche rapide
-- Champ de recherche minimal (ligne soulignée) en haut de la liste. **[À DÉCIDER (D28)]** loupe en pictogramme ou en texte.
-- Clavier ouvert automatiquement à l'ouverture de la liste **[À DÉCIDER (D7) — recommandé : automatique, comme la référence, pour favoriser la recherche intentionnelle plutôt que le défilement]**.
+- Champ de recherche minimal (ligne soulignée) en haut de la liste. Texte seul, sans loupe (D28, DEC-0003).
+- Clavier ouvert automatiquement à l'ouverture de la liste (D7, DEC-0003).
 - Filtrage à chaque frappe, insensible à la casse et aux accents (« eclair » trouve « Éclair »), correspondance sur le début de mot puis sur une sous-chaîne.
 - **[À DÉCIDER (D8)]** Recherche aussi sur le nom d'origine d'une app renommée (pratique) ou uniquement sur le nom personnalisé (cohérent avec F-2.4, où le nom d'origine n'apparaît que dans les Paramètres).
-- **[À DÉCIDER (D7)]** Lancement automatique quand un seul résultat subsiste (rapide, mais source de lancements involontaires).
+- Pas de lancement automatique quand un seul résultat subsiste (rapide, mais source de lancements involontaires ; D7, DEC-0003).
 - Touche « Entrée » du clavier : lance le premier résultat.
 - Aucun résultat : message « Aucune app » ; pas de repli automatique vers une recherche web ni d'ouverture de navigateur.
 - Pendant la saisie, l'index alphabétique (F-1.6) est masqué.
 
 *Critères* : la logique de recherche est une fonction pure couverte par des tests unitaires (accents, casse, ordre des résultats).
 
-#### F-1.5 Paramètres et « Quitter Épure »
+#### F-1.5 Paramètres et « Changer de launcher »
 - Écran Paramètres en liste texte, même typographie que la liste des apps.
 - Accès selon D6.
-- Option **« Quitter Épure »** : ouvre le réglage système de l'écran d'accueil par défaut (`Settings.ACTION_HOME_SETTINGS`), avec repli sur `Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS` si la première n'est pas disponible. **[À VÉRIFIER]** comportement exact sous One UI 8.0.
-- Texte explicatif court : Android ne permet pas à une app de changer elle-même de launcher ; l'utilisateur doit choisir le launcher d'origine (One UI Home) dans l'écran qui s'ouvre.
+- Option **« Changer de launcher »** (DEC-0009) : ouvre le réglage système de l'écran d'accueil par défaut (`Settings.ACTION_HOME_SETTINGS`), avec repli sur `Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS` si la première n'est pas disponible. **[À VÉRIFIER]** comportement exact sous One UI 8.0.
+- Pas de texte explicatif (DEC-0009).
 - Section « À propos » : nom « Épure », version, licence GPL v3, lien vers le dépôt GitHub `epure-launcher` (sans permission Internet : le lien est ouvert par le navigateur), crédits des éventuels codes tiers. Aucune mention suggérant une affiliation avec Minimalist Phone.
 
-*Critères* : depuis Épure, l'utilisateur revient à One UI Home en deux actions au plus après « Quitter Épure ».
+*Critères* : depuis Épure, l'utilisateur revient à One UI Home en deux actions au plus après « Changer de launcher ».
 
 #### F-1.6 Index alphabétique
-- **[À DÉCIDER (D25)]** : à implémenter ou non. Argument pour : navigation rapide dans une longue liste. Argument contre : favorise le défilement, que la recherche cherche justement à éviter.
+- Non implémenté au jalon 1 (D25, DEC-0003). Argument pour : navigation rapide dans une longue liste. Argument contre : favorise le défilement, que la recherche cherche justement à éviter. À reconsidérer plus tard.
 - Si retenu : colonne verticale de lettres, à droite de la liste ; seules les initiales présentes dans la liste y figurent (lettres accentuées regroupées avec leur lettre de base ; chiffres et symboles regroupés sous « # ») ; toucher ou glisser sur une lettre fait défiler jusqu'à la première app correspondante, sans animation superflue ; masqué pendant une recherche.
 
 *Critères (si retenu)* : toucher « M » amène la première app en M en haut de l'écran ; une lettre sans app n'apparaît pas.
@@ -393,13 +393,13 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D1 | Navigation : état manuel ou `navigation-compose` (**tranchée : DEC-0002**) | 1 | — |
 | D2 | Persistance : DataStore seul ou DataStore + Room (**tranchée : DEC-0002**) | 1 / 4 | — |
 | D3 | `LauncherApps` ou `PackageManager` (**tranchée : DEC-0002**) | 1 | — |
-| D4 | Profil professionnel / Dossier sécurisé | 1 | — |
-| D5 | Passage accueil ↔ liste des apps (geste, libellé) | 1 | Référence : balayage vers le haut → recherche |
-| D6 | Accès aux Paramètres | 1 | Référence : depuis l'écran de la liste des apps |
-| D7 | Clavier automatique ; lancement auto si un seul résultat | 1 | Référence : clavier ouvert d'emblée |
-| D8 | Recherche sur le nom d'origine des apps renommées | 1 / 2 | — |
-| D9 | Contenu du menu d'appui long | 1 | Proposition en T-2 |
-| D10 | Appui sur la date | 1 | — |
+| D4 | Profil professionnel / Dossier sécurisé (**tranchée : DEC-0003**) | 1 | — |
+| D5 | Passage accueil ↔ liste des apps (geste, libellé) (**tranchée : DEC-0003**) | 1 | Référence : balayage vers le haut → recherche |
+| D6 | Accès aux Paramètres (**tranchée : DEC-0003**) | 1 | Référence : depuis l'écran de la liste des apps |
+| D7 | Clavier automatique ; lancement auto si un seul résultat (**tranchée : DEC-0003**) | 1 | Référence : clavier ouvert d'emblée |
+| D8 | Recherche sur le nom d'origine des apps renommées (**reportée au jalon 2, DEC-0003**) | 1 / 2 | — |
+| D9 | Contenu du menu d'appui long (**tranchée pour le jalon 1 : DEC-0003**) | 1 | Proposition en T-2 |
+| D10 | Appui sur la date (**tranchée : DEC-0003**) | 1 | — |
 | D11 | Langue(s) de l'interface ; tutoiement ou vouvoiement (**tranchée : DEC-0002**) | 1 | Référence : tutoiement |
 | D12 | Nombre max de favoris | 2 | — |
 | D13 | Forme et emplacement des raccourcis | 2 | — |
@@ -414,10 +414,10 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D22 | Niveaux de gris : manuel ou programmé | 5 | — |
 | D23 | Sauvegarde Android (`allowBackup`) (**tranchée : DEC-0002**) | 1 | — |
 | D24 | Publication : Play Store, F-Droid, aucune (le nom distinctif et sa portée sont tranchés : DEC-0001) | Après 5 | — |
-| D25 | Index alphabétique : oui ou non | 1 | Présent dans la référence |
+| D25 | Index alphabétique : oui ou non (**non au jalon 1, DEC-0003**) | 1 | Présent dans la référence |
 | D26 | Indicateur de temps d'écran sur l'accueil (arc ou trait) : oui ou non | 1 (emplacement) / 3 (données) | Arc autour de l'heure dans la référence, signification non confirmée |
 | D27 | Guide de premier lancement : oui ou non ; nombre de cartes | 2 | Référence : 9 cartes de conseils |
-| D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul | 1 | Référence : loupe et roue dentée |
+| D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul (**tranchée : DEC-0003**) | 1 | Référence : loupe et roue dentée |
 | D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
 | D30 | Durée maximale et durées proposées pour le blocage prolongé | 4 | Référence : jusqu'à 30 jours |
 | D31 | « Désinstaller » : intent direct (`ACTION_DELETE`, permission `REQUEST_DELETE_PACKAGES`) ou renvoi vers la fiche système de l'app (aucune permission) | 1 | — |

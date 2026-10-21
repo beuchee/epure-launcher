@@ -97,3 +97,126 @@
   - D3 : faible coût à changer tant que la liste des apps n'est pas en place.
   - D23 : facile à changer (une ligne dans le manifeste), mais une sauvegarde activée ultérieurement ne couvrirait que les données créées après.
   - D11 : facile à changer (ajout d'un dossier `values-en/`).
+
+---
+
+## DEC-0003 — Choix d'interface du jalon 1 (D4, D5, D6, D7, D8, D9, D10, D25, D26, D28, D31)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée (D8 : report, voir ci-dessous)
+- **Décision(s) SPEC concernée(s)** : D4, D5, D6, D7, D8, D9, D10, D25, D26, D28, D31
+- **Contexte** : le jalon 1 pose la navigation, la liste des apps et le menu d'appui long. Ces points doivent être tranchés avant leurs tâches (`CLAUDE.md`).
+- **Options envisagées** : pour chaque point, les options de `SPEC.md` ; la recommandation de `SPEC.md` a été retenue dans tous les cas.
+- **Décision** :
+  - D4 : les apps du profil professionnel et du Dossier sécurisé Samsung sont ignorées au jalon 1.
+  - D5 : balayage vers le haut depuis l'accueil, qui ouvre la liste avec le champ de recherche actif ; un libellé discret « Apps » est affiché en bas de l'accueil.
+  - D6 : accès aux Paramètres depuis la liste des apps, coin inférieur droit. Pas d'appui long sur l'accueil au jalon 1.
+  - D7 : clavier ouvert automatiquement à l'ouverture de la liste ; pas de lancement automatique quand un seul résultat reste.
+  - D8 : **reporté au jalon 2**, où le renommage est introduit.
+  - D9 : menu d'appui long du jalon 1 limité à « Infos de l'app » et « Désinstaller ».
+  - D10 : appui sur la date sans effet.
+  - D25 : pas d'index alphabétique au jalon 1 ; à reconsidérer plus tard.
+  - D26 : l'emplacement sous l'horloge est réservé au jalon 1, sans affichage ; le choix de l'indicateur lui-même (oui ou non) reste ouvert pour le jalon 3.
+  - D28 : texte seul, sans pictogramme (ni loupe ni roue dentée).
+  - D31 : « Désinstaller » renvoie vers la fiche système de l'app ; aucune permission `REQUEST_DELETE_PACKAGES`.
+- **Justification** : suivre la recommandation de `SPEC.md` (principe 6 : simplicité d'abord). Pour D8, la décision ne sert pas avant le renommage (jalon 2).
+- **Conséquences** :
+  - `ui/` : écran accueil avec horloge, date, libellé « Apps » ; écran liste avec recherche et bouton Paramètres en bas à droite.
+  - Manifeste : pas de `REQUEST_DELETE_PACKAGES`.
+  - Textes en français, tutoiement, dans `strings.xml`.
+- **Réversibilité** : facile pour D4, D5, D6, D7, D9, D10, D25, D26, D28 (interface seulement). D31 : facile (ajouter la permission et un intent si l'on change d'avis).
+
+---
+
+## DEC-0004 — Dépendance DataStore Preferences et mémorisation de la demande de launcher
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D2 (DEC-0002) ; F-1.1 (demande de rôle au premier lancement)
+- **Contexte** : F-1.1 demande de devenir launcher « au premier lancement ». Sans mémoire, la demande reviendrait à chaque ouverture tant que l'utilisateur n'accepte pas. Il faut donc stocker un seul booléen (« demande déjà faite »). D2 a retenu DataStore pour les réglages.
+- **Options envisagées** :
+  - A. `androidx.datastore:datastore-preferences` : bibliothèque officielle, asynchrone, sans configuration. Un ajout de dépendance (quelques Ko).
+  - B. `SharedPreferences` : déjà dans Android, aucune dépendance. Mais D2 a retenu DataStore, et l'API synchrone est moins recommandée.
+- **Décision** : option A. Dépendance `androidx.datastore:datastore-preferences` (version `1.1.1`), utilisée uniquement dans `data/SettingsStore.kt` pour un booléen `home_role_prompted`.
+- **Justification** : c'est le choix de D2, sans bibliothèque tierce (Google, GPL compatible, aucune donnée sortant du téléphone). Pas d'analytics, de crash reporting ni de publicité.
+- **Conséquences** :
+  - `gradle/libs.versions.toml` et `app/build.gradle.kts` : nouvelle dépendance.
+  - Pour refaire le test de la demande, il faut effacer les données d'Épure (Paramètres > Applications > Épure > Stockage > Effacer les données).
+- **Réversibilité** : facile (un seul fichier à remplacer).
+
+---
+
+## DEC-0005 — Présentation du menu d'appui long (T-2) : fenêtre centrée
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : T-2 (point non numéroté : fenêtre centrée ou feuille ancrée en bas)
+- **Contexte** : `SPEC.md` T-2 laisse ouvert le choix entre une fenêtre centrée (comme la référence) et une feuille ancrée en bas d'écran (plus accessible au pouce).
+- **Options envisagées** :
+  - A. Fenêtre centrée : fidèle à la référence ; le titre et les actions tiennent dans une boîte noire.
+  - B. Feuille en bas : plus accessible au pouce sur grand écran.
+- **Décision** : option A, fenêtre centrée sur fond assombri, fermeture par Retour ou toucher hors de la fenêtre.
+- **Justification** : choix exprimé par Alain sur le téléphone ; cohérent avec la référence visuelle (§ 5 bis).
+- **Conséquences** : le composant de menu est une fenêtre centrée. La question « même menu depuis un favori » (T-2) reste ouverte pour le jalon 2.
+- **Réversibilité** : facile (remplacer le composant d'affichage, pas la logique des actions).
+
+---
+
+## DEC-0006 — Taille de base du texte de la liste des apps : 32 sp
+
+- **Date** : 2026-10-21
+- **Statut** : Remplacée par DEC-0008
+- **Décision(s) SPEC concernée(s)** : F-1.2 (point non numéroté : valeur de la taille de base)
+- **Contexte** : `SPEC.md` F-1.2 demande une taille « nettement supérieure au texte courant », sans valeur. Le texte courant de l'app est de 16 sp (corps de texte Material). Alain demande une taille deux fois plus grande.
+- **Options envisagées** : 28 sp (proposé initialement), 32 sp (deux fois 16 sp), 56 sp (deux fois 28 sp).
+- **Décision** : 32 sp pour les noms d'apps dans la liste.
+- **Justification** : choix d'Alain, en référence au texte courant de l'app. Les tailles restent en `sp`, donc suivent le réglage de taille de police du téléphone.
+- **Conséquences** : les noms longs passent à la ligne (F-1.2). Cible tactile ≥ 48 dp conservée. La taille de l'horloge (F-1.3) reste à définir à part.
+- **Réversibilité** : facile (une constante).
+
+---
+
+## DEC-0007 — Tailles de l'heure et de la date sur l'accueil
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : F-1.3 (taille de l'heure et de la date, non chiffrées dans la spec)
+- **Contexte** : F-1.3 demande une heure « en très grande taille et graisse légère » et une date en dessous, sans valeur. Alain a accepté 120 sp pour l'heure.
+- **Options envisagées** : heure de 120 sp (proposée et acceptée) ; date de 20 sp (proposée) ou 16 sp (texte courant).
+- **Décision** : heure à 120 sp, graisse légère (`FontWeight.Light`) ; date à 20 sp, graisse normale.
+- **Justification** : valeur de l'heure acceptée par Alain ; la date doit rester subordonnée à l'heure, d'où une taille supérieure au texte courant mais nettement plus petite.
+- **Conséquences** : tailles en `sp`, donc elles suivent le réglage de taille de police du téléphone.
+- **Réversibilité** : facile (deux constantes).
+
+---
+
+## DEC-0008 — Taille de base du texte de la liste des apps : 28 sp (remplace DEC-0006)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : F-1.2 (valeur de la taille de base)
+- **Contexte** : après test sur le téléphone, 32 sp est trop grand pour la liste (retour d'Alain).
+- **Options envisagées** : 28 sp (proposition initiale), 32 sp (DEC-0006, testée et jugée trop grande).
+- **Décision** : 28 sp pour les noms d'apps dans la liste et pour le titre du menu d'appui long.
+- **Justification** : test concret sur le téléphone ; 28 sp reste nettement plus grand que le texte courant.
+- **Conséquences** : tailles en `sp`, donc elles suivent le réglage de taille de police du téléphone.
+- **Réversibilité** : facile (une constante).
+
+---
+
+## DEC-0009 — Menu d'appui long réduit ; paramètres simplifiés (complète DEC-0003, D31)
+
+- **Date** : 2026-10-21
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D9, D31, F-1.5, T-2
+- **Contexte** : après test sur le téléphone, Alain juge « Désinstaller » inutile dans le menu d'appui long, puisque « Infos de l'app » mène à la fiche système où la désinstallation est possible. Il demande aussi un écran Paramètres plus sobre.
+- **Décision** :
+  - Menu d'appui long : seule l'action « Infos de l'app » reste au jalon 1. « Désinstaller » est retiré. D31 n'a donc plus d'objet : la désinstallation passe par la fiche système ouverte par « Infos de l'app ».
+  - Paramètres : l'option « Quitter Épure » est renommée « Changer de launcher ». Le texte explicatif qui la précédait est supprimé.
+  - À propos : toute la ligne « Dépôt GitHub : epure-launcher » est en 20 sp, comme « Épure » dans le même écran.
+- **Justification** : choix d'Alain, après test sur le téléphone. Un menu plus court évite une action redondante.
+- **Conséquences** :
+  - `SPEC.md` F-1.5 et le tableau T-2 sont mis à jour pour refléter ces choix.
+  - Aucun paramètre de permission n'est modifié.
+  - Le texte explicatif était le seul moyen d'expliquer pourquoi Épure ne quitte pas lui-même : ce libellé doit être compris sans lui. Un point à surveiller sur le téléphone.
+- **Réversibilité** : facile (libellés et une ligne de menu).

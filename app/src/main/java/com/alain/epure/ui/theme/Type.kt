@@ -32,3 +32,32 @@ val Typography = Typography(
     )
     */
 )
+
+// Sizes in sp follow the system font size setting (DEC-0006, DEC-0007).
+val ClockStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Light,
+    fontSize = 120.sp,
+    lineHeight = 120.sp
+)
+
+val DateStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 20.sp,
+    lineHeight = 28.sp
+)
+
+val AppNameStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 28.sp,
+    lineHeight = 36.sp
+)
+
+val LabelStyle = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 20.sp,
+    lineHeight = 28.sp
+)

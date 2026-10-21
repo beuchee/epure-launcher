@@ -42,36 +42,36 @@ Préparatoire : aucune fonction visible, mais conditionne tout le reste.
 Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir l'emplacement réservé à D26, même si l'indicateur n'est réalisé qu'au jalon 3).
 
 ### Tâches
-- [ ] Thème Compose noir, typographie système, échelle de tailles en `sp` (heure très grande et légère ; liste en grande taille), gestion edge-to-edge (`WindowInsets`)
-- [ ] Manifeste : `intent-filter` `MAIN`/`HOME`/`DEFAULT` ; déclaration `<queries>` (F-1.1, F-1.2)
-- [ ] Proposition de devenir launcher par défaut via `RoleManager` au premier lancement (F-1.1)
-- [ ] Gestion du bouton Accueil (`onNewIntent` → réinitialisation de l'accueil) et du bouton Retour (`BackHandler`) (F-1.1)
-- [ ] Geste ou libellé d'accès à la liste des apps selon D5 (F-1.1)
-- [ ] Source des apps (`LauncherApps` ou `PackageManager` selon D3) + mise à jour à l'installation/désinstallation (F-1.2)
-- [ ] Liste des apps en texte, triée, Épure exclu, cibles ≥ 48 dp, noms longs sur deux lignes (F-1.2)
-- [ ] Horloge et date (format selon F-1.3), mise à jour à la minute sans service permanent (F-1.3)
-- [ ] Fonction pure de normalisation et de recherche (accents, casse, ordre) + tests unitaires (F-1.4)
-- [ ] Écran de recherche branché sur la liste : champ minimal, clavier selon D7, message « Aucune app », aucune ouverture web (F-1.4)
-- [ ] Index alphabétique, si D25 le retient : fonction pure de calcul des initiales + tests unitaires, puis composant (F-1.6)
-- [ ] Menu d'appui long (T-2), version jalon 1 : « Infos de l'app » et « Désinstaller » (selon D31) ; titre = nom affiché
-- [ ] Écran Paramètres (accès selon D6) + « Quitter Épure » (`ACTION_HOME_SETTINGS`, repli `ACTION_MANAGE_DEFAULT_APPS_SETTINGS`) + « À propos » avec lien vers le dépôt `epure-launcher` (F-1.5)
+- [x] Thème Compose noir, typographie système, échelle de tailles en `sp` (heure très grande et légère ; liste en grande taille), gestion edge-to-edge (`WindowInsets`)
+- [x] Manifeste : `intent-filter` `MAIN`/`HOME`/`DEFAULT` ; déclaration `<queries>` (F-1.1, F-1.2)
+- [x] Proposition de devenir launcher par défaut via `RoleManager` au premier lancement (F-1.1)
+- [x] Gestion du bouton Accueil (`onNewIntent` → réinitialisation de l'accueil) et du bouton Retour (`BackHandler`) (F-1.1)
+- [x] Geste ou libellé d'accès à la liste des apps selon D5 (F-1.1)
+- [x] Source des apps (`LauncherApps` ou `PackageManager` selon D3) + mise à jour à l'installation/désinstallation (F-1.2)
+- [x] Liste des apps en texte, triée, Épure exclu, cibles ≥ 48 dp, noms longs sur deux lignes (F-1.2)
+- [x] Horloge et date (format selon F-1.3), mise à jour à la minute sans service permanent (F-1.3)
+- [x] Fonction pure de normalisation et de recherche (accents, casse, ordre) + tests unitaires (F-1.4)
+- [x] Écran de recherche branché sur la liste : champ minimal, clavier selon D7, message « Aucune app », aucune ouverture web (F-1.4)
+- [ ] Index alphabétique, si D25 le retient (non retenu, DEC-0003) : fonction pure de calcul des initiales + tests unitaires, puis composant (F-1.6)
+- [x] Menu d'appui long (T-2), version jalon 1 : « Infos de l'app » seule (« Désinstaller » retiré, DEC-0009) ; titre = nom affiché
+- [x] Écran Paramètres (accès selon D6) + « Changer de launcher » (`ACTION_HOME_SETTINGS`, repli `ACTION_MANAGE_DEFAULT_APPS_SETTINGS`) + « À propos » avec lien vers le dépôt `epure-launcher` (F-1.5)
 
 ### Liste de contrôle sur le téléphone
-- [ ] Épure sélectionnable et sélectionné comme launcher par défaut
-- [ ] Bouton Accueil depuis n'importe quelle app → accueil Épure, propre (recherche vidée, clavier et menu fermés)
-- [ ] Bouton Retour sur l'accueil sans effet ; depuis la liste → retour à l'accueil
-- [ ] Geste d'accès à la liste fiable, sans déclenchement involontaire
-- [ ] Toutes les apps lançables présentes ; installer puis désinstaller une app met la liste à jour
-- [ ] Recherche « eclair » trouve une app nommée « Éclair » ; recherche sans résultat → aucun navigateur ne s'ouvre
-- [ ] Clavier ouvert à l'ouverture de la liste (si D7 le retient)
+- [x] Épure sélectionnable et sélectionné comme launcher par défaut
+- [x] Bouton Accueil depuis n'importe quelle app → accueil Épure, propre (recherche vidée, clavier et menu fermés)
+- [x] Bouton Retour sur l'accueil sans effet ; depuis la liste → retour à l'accueil
+- [x] Geste d'accès à la liste fiable, sans déclenchement involontaire
+- [x] Toutes les apps lançables présentes ; installer puis désinstaller une app met la liste à jour
+- [x] Recherche « eclair » trouve une app nommée « Éclair » ; recherche sans résultat → aucun navigateur ne s'ouvre
+- [x] Clavier ouvert à l'ouverture de la liste (si D7 le retient)
 - [ ] Index alphabétique (si retenu) : seules les lettres présentes ; toucher une lettre amène la bonne app
-- [ ] Appui long : menu lisible ; « Infos de l'app » ouvre la bonne fiche ; « Désinstaller » fonctionne
-- [ ] Heure juste à la minute, y compris après 1 h de veille
-- [ ] Taille de police système agrandie : affichage lisible, sans texte tronqué gênant
+- [x] Appui long : menu lisible ; « Infos de l'app » ouvre la bonne fiche (« Désinstaller » retiré, DEC-0009)
+- [x] Heure juste à la minute, y compris après 1 h de veille
+- [x] Taille de police système agrandie : affichage lisible, sans texte tronqué gênant
 - [ ] TalkBack : liste, index et menu lisibles
-- [ ] « Quitter Épure » → retour à One UI Home en deux actions au plus ([À VÉRIFIER] sous One UI 8.0)
-- [ ] « À propos » : nom, version, licence et lien vers le dépôt corrects
-- [ ] Rotation de l'écran / mode multifenêtre : pas de plantage
+- [x] « Changer de launcher » → retour à One UI Home en deux actions au plus ([À VÉRIFIER] sous One UI 8.0)
+- [x] « À propos » : nom, version, licence et lien vers le dépôt corrects
+- [x] Rotation de l'écran / mode multifenêtre : pas de plantage
 
 **Validation** : utilisation d'Épure comme launcher principal pendant 3 jours sans blocage.
 
