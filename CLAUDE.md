@@ -35,7 +35,6 @@ Launcher Android minimaliste (écran d'accueil en texte seul) pour réduire le t
 - Appareil de test : Samsung, Android 16 / One UI 8.0.
 - Une seule activité ; `ViewModel` + `StateFlow` ; pas de framework d'injection (classe `AppContainer`).
 - Logique pure (recherche, tri, index, minuteur, évaluation des blocages) dans `domain/`, sans dépendance Android, **couverte par des tests unitaires**.
-- Paquets indicatifs : `ui/`, `data/`, `system/`, `domain/`.
 - Contraintes `targetSdk` 36 : edge-to-edge (`WindowInsets`), retour prédictif (`BackHandler`, jamais `onBackPressed()`), `<queries>` pour lister les apps.
 
 ## Sobriété et confidentialité
@@ -50,7 +49,7 @@ Launcher Android minimaliste (écran d'accueil en texte seul) pour réduire le t
 
 ## Commandes
 
-> Poste de développement : **macOS** (shell zsh). Commandes à lancer depuis la racine du dépôt ; à confirmer après la création du projet (jalon 0).
+> Poste de développement : **macOS** (shell zsh). Commandes à lancer depuis la racine du dépôt.
 > `adb` est fourni par le SDK Android dans `~/Library/Android/sdk/platform-tools` : ce dossier doit figurer dans le `PATH` (ex. `export PATH="$PATH:$HOME/Library/Android/sdk/platform-tools"` dans `~/.zshrc`).
 
 ```bash
