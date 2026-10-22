@@ -47,6 +47,11 @@ class AppsViewModel(
             AppSearch.filter(list.map { it.withName(names) }, text)
         }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
+    // Every launchable app with its custom name, for screens outside the search (statistics).
+    val namedApps: StateFlow<List<LaunchableApp>> =
+        combine(apps, renames) { list, names -> list.map { it.withName(names) } }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
     // Favourites in order, with spaces. An uninstalled app simply disappears.
     val favorites: StateFlow<List<FavoriteSlot>> =
         combine(apps, favoriteKeys, renames) { list, keys, names ->

@@ -29,7 +29,12 @@ private const val REPO_URL = "https://github.com/beuchee/epure-launcher"
 private const val REPO_NAME = "epure-launcher"
 
 @Composable
-fun SettingsScreen(onOpenFavorites: () -> Unit, onOpenRenamed: () -> Unit, onOpenShortcuts: () -> Unit) {
+fun SettingsScreen(
+    onOpenFavorites: () -> Unit,
+    onOpenRenamed: () -> Unit,
+    onOpenShortcuts: () -> Unit,
+    onOpenStats: () -> Unit
+) {
     val context = LocalContext.current
     val version = remember { versionName(context) }
     val repoLabel = buildAnnotatedString {
@@ -61,6 +66,10 @@ fun SettingsScreen(onOpenFavorites: () -> Unit, onOpenRenamed: () -> Unit, onOpe
         ActionRow(
             text = AnnotatedString(stringResource(R.string.settings_shortcuts)),
             onClick = onOpenShortcuts
+        )
+        ActionRow(
+            text = AnnotatedString(stringResource(R.string.settings_stats)),
+            onClick = onOpenStats
         )
         ActionRow(
             text = AnnotatedString(stringResource(R.string.quit_epure)),

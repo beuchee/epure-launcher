@@ -23,11 +23,17 @@ import com.alain.epure.domain.Customization
 import com.alain.epure.domain.LaunchableApp
 import com.alain.epure.ui.theme.Black
 
-enum class Screen { HOME, APPS, SETTINGS, FAVORITES, RENAMED, SHORTCUTS }
+enum class Screen { HOME, APPS, SETTINGS, FAVORITES, RENAMED, SHORTCUTS, STATS }
 
 @Composable
-fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) -> Unit) {
+fun EpureApp(
+    viewModel: AppsViewModel,
+    statsViewModel: StatsViewModel,
+    screen: Screen,
+    onScreenChange: (Screen) -> Unit
+) {
     val favorites by viewModel.favorites.collectAsState()
+    val namedApps by viewModel.namedApps.collectAsState()
     val shortcuts by viewModel.shortcutChoices.collectAsState()
     val context = LocalContext.current
     val favoritesFull = stringResource(R.string.favorites_full, Customization.MAX_FAVORITES)
@@ -38,6 +44,8 @@ fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) 
 
     LaunchedEffect(screen) {
         if (screen != Screen.APPS) viewModel.clearQuery()
+        // Reads the statistics each time their screen opens (F-3.2).
+        if (screen == Screen.STATS) statsViewModel.refresh()
         menuApp = null
         renamingApp = null
     }
@@ -46,7 +54,10 @@ fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) 
     // On home it does nothing (Épure stays the launcher).
     BackHandler(enabled = screen == Screen.APPS) { onScreenChange(Screen.HOME) }
     BackHandler(enabled = screen == Screen.SETTINGS) { onScreenChange(Screen.APPS) }
-    BackHandler(enabled = screen == Screen.FAVORITES || screen == Screen.RENAMED || screen == Screen.SHORTCUTS) {
+    BackHandler(
+        enabled = screen == Screen.FAVORITES || screen == Screen.RENAMED ||
+            screen == Screen.SHORTCUTS || screen == Screen.STATS
+    ) {
         onScreenChange(Screen.SETTINGS)
     }
     BackHandler(enabled = screen == Screen.HOME) { }
@@ -74,11 +85,17 @@ fun EpureApp(viewModel: AppsViewModel, screen: Screen, onScreenChange: (Screen) 
             Screen.SETTINGS -> SettingsScreen(
                 onOpenFavorites = { onScreenChange(Screen.FAVORITES) },
                 onOpenRenamed = { onScreenChange(Screen.RENAMED) },
-                onOpenShortcuts = { onScreenChange(Screen.SHORTCUTS) }
+                onOpenShortcuts = { onScreenChange(Screen.SHORTCUTS) },
+                onOpenStats = { onScreenChange(Screen.STATS) }
             )
             Screen.FAVORITES -> FavoritesScreen(viewModel = viewModel)
             Screen.RENAMED -> RenamedAppsScreen(viewModel = viewModel)
             Screen.SHORTCUTS -> ShortcutsScreen(viewModel = viewModel)
+            Screen.STATS -> StatsScreen(
+                viewModel = statsViewModel,
+                apps = namedApps,
+                onBack = { onScreenChange(Screen.SETTINGS) }
+            )
         }
     }
 

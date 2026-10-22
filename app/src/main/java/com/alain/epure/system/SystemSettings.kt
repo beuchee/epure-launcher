@@ -19,6 +19,11 @@ object SystemSettings {
         }
     }
 
+    // The « Données d'utilisation » screen, where the usage access is switched on (F-3.1).
+    fun openUsageAccess(context: Context) {
+        start(context, Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+    }
+
     fun openUrl(context: Context, url: String) {
         start(context, Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }

@@ -15,9 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import com.alain.epure.data.AppRepository
 import com.alain.epure.data.CustomizationStore
 import com.alain.epure.data.SettingsStore
+import com.alain.epure.system.UsageAccess
 import com.alain.epure.ui.AppsViewModel
 import com.alain.epure.ui.EpureApp
 import com.alain.epure.ui.Screen
+import com.alain.epure.ui.StatsViewModel
 import com.alain.epure.ui.theme.EpureTheme
 import kotlinx.coroutines.launch
 
@@ -26,6 +28,9 @@ class MainActivity : ComponentActivity() {
     private val settings by lazy { SettingsStore(this) }
     private val appsViewModel: AppsViewModel by viewModels {
         AppsViewModel.factory(AppRepository(applicationContext), CustomizationStore(applicationContext))
+    }
+    private val statsViewModel: StatsViewModel by viewModels {
+        StatsViewModel.factory(UsageAccess(applicationContext))
     }
     private var screen by mutableStateOf(Screen.HOME)
 
@@ -36,6 +41,7 @@ class MainActivity : ComponentActivity() {
             EpureTheme {
                 EpureApp(
                     viewModel = appsViewModel,
+                    statsViewModel = statsViewModel,
                     screen = screen,
                     onScreenChange = { screen = it }
                 )
@@ -61,6 +67,8 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         appsViewModel.refresh()
+        // Back from the usage settings: the statistics are read again if they are on screen (F-3.1).
+        if (screen == Screen.STATS) statsViewModel.refresh()
     }
 
     // Asks Android to make Épure the home app, unless it already is.

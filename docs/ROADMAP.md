@@ -116,20 +116,20 @@ Décisions préalables : D12, D13, D14, D27 (et D8 si non tranchée).
 Décisions préalables : D15, D26, D29.
 
 ### Tâches
-- [ ] Composant réutilisable « Écran d'autorisation » (T-1) : titre, pourquoi, ce qu'Épure ne fait pas, consignes numérotées One UI, « Ouvrir le réglage », « Plus tard », vérification au retour
-- [ ] Application à `PACKAGE_USAGE_STATS` : ouverture de `ACTION_USAGE_ACCESS_SETTINGS`, libellés One UI (« Données d'utilisation » → « Octroi d'autorisation »), moment de la demande selon D29 (F-3.1)
-- [ ] Lecture du temps par app via `UsageStatsManager` (F-3.2)
-- [ ] Comptage des ouvertures via `queryEvents` (`ACTIVITY_RESUMED`), avec regroupement selon D15 — logique pure + tests unitaires (F-3.2)
-- [ ] Exclusion d'Épure et du launcher système (F-3.2)
-- [ ] Écran Statistiques : total du jour, liste triée par temps (F-3.2)
+- [x] Composant réutilisable « Écran d'autorisation » (T-1) : titre, pourquoi, ce qu'Épure ne fait pas, consignes numérotées One UI, « Ouvrir le réglage », « Plus tard », vérification au retour
+- [x] Application à `PACKAGE_USAGE_STATS` : ouverture de `ACTION_USAGE_ACCESS_SETTINGS`, libellés One UI (« Données d'utilisation » → « Octroi d'autorisation »), moment de la demande selon D29 (F-3.1)
+- [x] Lecture du temps par app via `UsageStatsManager` (F-3.2)
+- [x] Comptage des ouvertures via `queryEvents` (`ACTIVITY_RESUMED`), avec regroupement selon D15 — logique pure + tests unitaires (F-3.2)
+- [x] Exclusion d'Épure et du launcher système (F-3.2)
+- [x] Écran Statistiques : total du jour, liste triée par temps (F-3.2)
 - Indicateur de temps d'écran sur l'accueil : non retenu (D26, DEC-0016).
-- [ ] État « permission absente » géré proprement
+- [x] État « permission absente » géré proprement
 
 ### Liste de contrôle sur le téléphone
-- [ ] Écran d'autorisation : refus → seule la fonction Statistiques est inactive ; accord → active sans redémarrage
-- [ ] Une app utilisée 5 minutes volontairement apparaît avec 5 min (± 1)
-- [ ] Ouvrir une app 3 fois → 3 ouvertures
-- [ ] Permission retirée dans les réglages → l'écran le signale sans plantage
+- [x] Écran d'autorisation : refus → seule la fonction Statistiques est inactive ; accord → active sans redémarrage
+- [x] Une app utilisée 5 minutes volontairement apparaît avec 5 min (± 1)
+- [x] Ouvrir une app 3 fois → 3 ouvertures
+- [x] Permission retirée dans les réglages → l'écran le signale sans plantage
 - [ ] Écran affiché en moins d'une seconde
 - [ ] Accueil toujours instantané après l'ajout des statistiques (indicateur non retenu, DEC-0016)
 - [ ] Écarts avec Bien-être numérique notés (attendus, non bloquants) — [À VÉRIFIER] rétention des données système

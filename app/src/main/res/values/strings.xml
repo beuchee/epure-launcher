@@ -41,4 +41,23 @@
     <string name="shortcut_clock">Horloge</string>
     <string name="shortcut_default">Par défaut</string>
     <string name="shortcut_off">Désactivé</string>
+    <string name="settings_stats">Statistiques</string>
+    <string name="stats_title">Statistiques</string>
+    <string name="stats_total">Total : %1$s</string>
+    <string name="stats_empty">Aucune utilisation aujourd\'hui.</string>
+    <string name="stats_manage_access">Gérer l\'autorisation</string>
+    <plurals name="stats_opens">
+        <item quantity="one">%1$d ouverture</item>
+        <item quantity="other">%1$d ouvertures</item>
+    </plurals>
+    <string name="duration_under_minute">moins d\'une minute</string>
+    <string name="duration_minutes">%1$d min</string>
+    <string name="duration_hours_minutes">%1$d h %2$02d min</string>
+    <string name="usage_access_title">Statistiques d\'usage</string>
+    <string name="usage_access_why">Pour afficher le temps passé sur chaque app aujourd\'hui et le nombre de fois où tu l\'ouvres.</string>
+    <string name="usage_access_not">Épure ne lit pas le contenu des apps et n\'envoie rien hors du téléphone.</string>
+    <string name="usage_access_steps">1. Appuie sur « Ouvrir le réglage ».\n2. Ouvre « Données d\'utilisation ».\n3. Active « Octroi d\'autorisation »\npour Épure.</string>
+    <string name="permission_open_settings">Ouvrir le réglage</string>
+    <string name="permission_later">Plus tard</string>
+    <string name="permission_revocable">Révocable à tout moment dans les réglages du téléphone.</string>
 </resources>
