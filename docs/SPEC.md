@@ -1,6 +1,6 @@
 # Épure — Cahier des charges (SPEC)
 
-> Version 0.8 — 22 octobre 2026
+> Version 0.9 — 22 octobre 2026
 > Statut : brouillon de référence. Les points marqués **[À DÉCIDER]** ne sont pas tranchés ; ils ne doivent pas être implémentés comme s'ils l'étaient. Une fois tranchés, les consigner dans `DECISIONS.md` puis mettre à jour ce document.
 > Les points marqués **[À VÉRIFIER]** reposent sur un comportement Android/One UI à confirmer sur l'appareil de test.
 >
@@ -13,6 +13,7 @@
 > - 0.6 (22/10/2026) : D5 (balayage de droite à gauche, DEC-0014), D13 (icônes des raccourcis, DEC-0013) et menu depuis l'accueil (T-2, DEC-0012) intégrés ; D27 reste reporté.
 > - 0.7 (22/10/2026) : libellé « Apps » rétabli en bas à gauche de l'accueil (DEC-0015) ; le balayage reste.
 > - 0.8 (22/10/2026) : statistiques du jalon 3 : aujourd'hui seulement, pas d'historique, regroupement de 5 secondes, pas d'indicateur d'accueil, demande d'accès au premier usage (DEC-0016).
+> - 0.9 (22/10/2026) : comportement normal des statistiques noté dans F-3.2 (temps compté à la sortie du premier plan ; musique en arrière-plan non comptée).
 
 ---
 
@@ -266,6 +267,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Temps : agrégation via `UsageStatsManager`. Ouvertures : comptage des événements `ACTIVITY_RESUMED` via `queryEvents`, en regroupant les reprises rapprochées d'une même app (fenêtre de 5 secondes, DEC-0016).
 - Épure et le launcher système sont exclus du classement.
 - Lecture **à la demande** à l'ouverture de l'écran ; aucune collecte en arrière-plan, aucune base de données d'historique propre à Épure (DEC-0016 : pas d'historique local).
+- Comportement normal : le temps d'une app encore au premier plan n'est compté qu'à sa sortie du premier plan (fonctionnement d'Android). La musique jouée en arrière-plan n'est pas comptée comme usage.
 - **[À VÉRIFIER]** Durée de rétention des événements par le système et cohérence des chiffres avec Bien-être numérique de Samsung (des écarts sont attendus : méthodes de calcul différentes). Ne pas prétendre reproduire ses chiffres.
 - Si D26 retient un indicateur sur l'accueil, il réutilise la même lecture à la demande (calcul à l'affichage de l'accueil, au plus une fois par minute).
 
