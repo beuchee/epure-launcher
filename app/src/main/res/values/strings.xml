@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Épure</string>
-    <string name="home_apps">Apps</string>
+    <string name="home_apps">apps</string>
     <string name="search_hint">Rechercher</string>
     <string name="no_app_found">Aucune app</string>
     <string name="favorites_empty">Appui long sur une app pour l\'ajouter ici</string>

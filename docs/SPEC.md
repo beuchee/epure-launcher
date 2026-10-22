@@ -1,6 +1,6 @@
 # Épure — Cahier des charges (SPEC)
 
-> Version 0.7 — 22 octobre 2026
+> Version 0.8 — 22 octobre 2026
 > Statut : brouillon de référence. Les points marqués **[À DÉCIDER]** ne sont pas tranchés ; ils ne doivent pas être implémentés comme s'ils l'étaient. Une fois tranchés, les consigner dans `DECISIONS.md` puis mettre à jour ce document.
 > Les points marqués **[À VÉRIFIER]** reposent sur un comportement Android/One UI à confirmer sur l'appareil de test.
 >
@@ -12,6 +12,7 @@
 > - 0.5 (21/10/2026) : D1, D2, D3, D11 et D23 tranchées (`DECISIONS.md` DEC-0002) ; marques [À DÉCIDER] retirées pour ces points.
 > - 0.6 (22/10/2026) : D5 (balayage de droite à gauche, DEC-0014), D13 (icônes des raccourcis, DEC-0013) et menu depuis l'accueil (T-2, DEC-0012) intégrés ; D27 reste reporté.
 > - 0.7 (22/10/2026) : libellé « Apps » rétabli en bas à gauche de l'accueil (DEC-0015) ; le balayage reste.
+> - 0.8 (22/10/2026) : statistiques du jalon 3 : aujourd'hui seulement, pas d'historique, regroupement de 5 secondes, pas d'indicateur d'accueil, demande d'accès au premier usage (DEC-0016).
 
 ---
 
@@ -140,7 +141,7 @@ Identifiants : `F-<jalon>.<n>` pour les fonctions, `T-<n>` pour les exigences tr
 Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibilité et batterie (jalon 4), écoute des notifications (jalon 5).
 - Plein écran noir, texte seul : **titre** (la fonction concernée), **pourquoi** (une ou deux phrases), **ce qu'Épure ne fait pas** (aucune lecture de contenu, aucun envoi), **consignes numérotées** pour One UI (nom exact du réglage et de l'interrupteur, ex. « Données d'utilisation » → « Octroi d'autorisation »), bouton **« Ouvrir le réglage »**, mention « Révocable à tout moment dans les réglages du téléphone », bouton **« Plus tard »**.
 - Au retour du réglage système : vérification automatique de l'autorisation ; écran fermé si elle est accordée, consigne maintenue sinon.
-- **[À DÉCIDER (D29)]** Moment de la demande : au premier usage de la fonction concernée (recommandé, cohérent avec le principe 3) ou assistant groupé au premier lancement (choix de la référence).
+- **Décidé (D29, DEC-0016)** : moment de la demande au premier usage de la fonction concernée (cohérent avec le principe 3), et non dans un assistant au premier lancement.
 - Pas d'illustration ni de capture du réglage système (sobriété, et pas de visuels tiers dans le dépôt).
 
 *Critères* : refuser l'autorisation désactive seulement la fonction concernée ; accorder puis revenir dans Épure active la fonction sans redémarrage.
@@ -195,7 +196,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Heure (format 24 h ou 12 h selon le réglage système) en très grande taille et graisse légère, centrée dans le haut de l'accueil ; date en toutes lettres, en français, sans l'année, en dessous (ex. « mercredi 21 octobre » **[À DÉCIDER : format exact]**).
 - Mise à jour à la minute, sans service ni minuteur permanent (abonnement à `ACTION_TIME_TICK` uniquement quand l'écran est visible, ou équivalent Compose).
 - Appui sur l'horloge : ouvre l'app Horloge (voir F-2.2). Appui sur la date : sans effet (D10, DEC-0003).
-- Emplacement sous l'horloge **réservé au jalon 1, sans affichage** (D26, DEC-0003). **[À DÉCIDER (D26)]** : indicateur discret autour ou sous l'horloge (ex. arc ou trait proportionnel au temps d'écran du jour), oui ou non, à trancher au jalon 3 ; il ne sera en aucun cas une limite quotidienne (fonction écartée).
+- Emplacement sous l'horloge **réservé au jalon 1, sans affichage** (D26, DEC-0003). **Décidé (D26, DEC-0016)** : pas d'indicateur pour l'instant (ni arc ni trait autour de l'horloge) ; il ne sera en aucun cas une limite quotidienne (fonction écartée).
 
 *Critères* : l'heure change à la minute exacte ; elle reste juste après mise en veille prolongée et changement de fuseau horaire.
 
@@ -261,10 +262,10 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Demande via l'écran d'autorisation commun (T-1) ; si refusé, l'écran Statistiques l'indique et propose de réessayer.
 
 #### F-3.2 Contenu
-- Pour aujourd'hui **[À DÉCIDER (D15) : et les 7 derniers jours ?]** : temps passé par app et nombre d'ouvertures, triés par temps décroissant ; temps total.
-- Temps : agrégation via `UsageStatsManager`. Ouvertures : comptage des événements `ACTIVITY_RESUMED` via `queryEvents`, en regroupant les reprises rapprochées d'une même app **[À DÉCIDER (D15) : seuil de regroupement]**.
+- Pour aujourd'hui uniquement (DEC-0016) : temps passé par app et nombre d'ouvertures, triés par temps décroissant ; temps total.
+- Temps : agrégation via `UsageStatsManager`. Ouvertures : comptage des événements `ACTIVITY_RESUMED` via `queryEvents`, en regroupant les reprises rapprochées d'une même app (fenêtre de 5 secondes, DEC-0016).
 - Épure et le launcher système sont exclus du classement.
-- Lecture **à la demande** à l'ouverture de l'écran ; aucune collecte en arrière-plan, aucune base de données d'historique propre à Épure **[À DÉCIDER (D15) : conserver un historique local au-delà de ce que garde le système ?]**.
+- Lecture **à la demande** à l'ouverture de l'écran ; aucune collecte en arrière-plan, aucune base de données d'historique propre à Épure (DEC-0016 : pas d'historique local).
 - **[À VÉRIFIER]** Durée de rétention des événements par le système et cohérence des chiffres avec Bien-être numérique de Samsung (des écarts sont attendus : méthodes de calcul différentes). Ne pas prétendre reproduire ses chiffres.
 - Si D26 retient un indicateur sur l'accueil, il réutilise la même lecture à la demande (calcul à l'affichage de l'accueil, au plus une fois par minute).
 
@@ -406,7 +407,7 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D12 | Nombre max de favoris | 2 | — |
 | D13 | Forme et emplacement des raccourcis (**tranchée : DEC-0013**, icônes simples en bas de l'accueil) | 2 | — |
 | D14 | Longueur max des noms personnalisés | 2 | — |
-| D15 | Période des statistiques ; historique local ; seuil de regroupement des ouvertures | 3 | — |
+| D15 | Période des statistiques ; historique local ; seuil de regroupement des ouvertures (**tranchée : DEC-0016**) | 3 | — |
 | D16 | Durées proposées par le minuteur | 4 | — |
 | D17 | Ouverture hors Épure d'une app avec minuteur | 4 | — |
 | D18 | Levée anticipée d'un blocage | 4 | — |
@@ -417,9 +418,9 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D23 | Sauvegarde Android (`allowBackup`) (**tranchée : DEC-0002**) | 1 | — |
 | D24 | Publication : Play Store, F-Droid, aucune (le nom distinctif et sa portée sont tranchés : DEC-0001) | Après 5 | — |
 | D25 | Index alphabétique : oui ou non (**non au jalon 1, DEC-0003**) | 1 | Présent dans la référence |
-| D26 | Indicateur de temps d'écran sur l'accueil (arc ou trait) : oui ou non | 1 (emplacement) / 3 (données) | Arc autour de l'heure dans la référence, signification non confirmée |
+| D26 | Indicateur de temps d'écran sur l'accueil (arc ou trait) : oui ou non (**tranchée : DEC-0016** : non) | 1 (emplacement) / 3 (données) | Arc autour de l'heure dans la référence, signification non confirmée |
 | D27 | Guide de premier lancement : oui ou non ; nombre de cartes (**reporté : DEC-0012**) | 2 | Référence : 9 cartes de conseils |
 | D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul (**tranchée : DEC-0003**) | 1 | Référence : loupe et roue dentée |
-| D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
+| D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial (**tranchée : DEC-0016** : à l'usage) | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
 | D30 | Durée maximale et durées proposées pour le blocage prolongé | 4 | Référence : jusqu'à 30 jours |
 | D31 | « Désinstaller » : intent direct (`ACTION_DELETE`, permission `REQUEST_DELETE_PACKAGES`) ou renvoi vers la fiche système de l'app (aucune permission) | 1 | — |

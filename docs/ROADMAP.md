@@ -1,6 +1,6 @@
 # Épure — Feuille de route (ROADMAP)
 
-> Version 0.5 — 22 octobre 2026
+> Version 0.6 — 22 octobre 2026
 > Règle : **chaque jalon produit une application fonctionnelle, testée sur le téléphone (Samsung, Android 16 / One UI 8.0), avant de passer au suivant.** Commit Git après chaque étape validée sur le téléphone. Une session Claude Code par jalon ou par tâche.
 > Références : exigences `F-x.y` / `T-n` et décisions `Dx` dans `SPEC.md`. Une décision `Dx` doit être consignée dans `DECISIONS.md` **avant** la tâche qui en dépend.
 >
@@ -10,6 +10,7 @@
 > - 0.3 (21/10/2026) : identité (`SPEC.md` § 2) — vérification des homonymes cochée (faite en octobre 2026) ; création du dépôt GitHub `epure-launcher` ; nom affiché « Épure » dans `strings.xml` ; conditions de nom avant le Play Store.
 > - 0.4 (21/10/2026) : DEC-0001 consignée dans `DECISIONS.md` (nom sur le téléphone « Épure » ; titre de fiche Play Store « Épure – launcher minimaliste ») ; `DECISIONS.md` créé avec modèle d'entrée.
 > - 0.5 (22/10/2026) : section transversale « Batterie et mémoire » ajoutée (mesures et seuils à fixer) ; cases du jalon 0 (dépôt, clé, premier push) cochées.
+> - 0.6 (22/10/2026) : jalon 2 validé sauf « une semaine d'usage » ; guide reporté (D27) ; indicateur d'accueil du jalon 3 non retenu (DEC-0016).
 
 ---
 
@@ -95,16 +96,16 @@ Décisions préalables : D12, D13, D14, D27 (et D8 si non tranchée).
 - [x] Renommage : seul le nom personnalisé est affiché partout, y compris en titre du menu d'appui long (F-2.4)
 - [x] Écran Paramètres « Apps renommées » : nom d'origine visible, modification, réinitialisation (F-2.4)
 - [x] Nettoyage silencieux des favoris et noms orphelins (app désinstallée)
-- [ ] Guide de premier lancement, si D27 le retient : 3 à 5 cartes texte propres à Épure, « Passer », affichage unique, relance depuis les Paramètres (T-3)
+- Guide de premier lancement : reporté (D27, DEC-0012), non implémenté.
 
 ### Liste de contrôle sur le téléphone
-- [ ] Favoris, ordre et espaces conservés après redémarrage du téléphone
-- [ ] App favorite désinstallée → disparaît sans erreur
+- [x] Favoris, ordre et espaces conservés après redémarrage du téléphone
+- [x] App favorite désinstallée → disparaît sans erreur
 - [x] Chaque raccourci ouvre la bonne app ; un raccourci personnalisé pointe bien vers l'app choisie
 - [x] App renommée : nom personnalisé dans la liste, les favoris, le menu et la recherche ; nom d'origine uniquement dans les Paramètres
-- [ ] Renommage conservé après mise à jour de l'app renommée (Play Store)
+- [x] Renommage conservé après mise à jour de l'app renommée (Play Store)
 - [x] Réinitialisation → nom système restauré
-- [ ] Guide (si retenu) : affiché une seule fois ; « Passer » fonctionne ; relance possible
+- Guide : reporté (D27, DEC-0012), hors de ce jalon.
 
 **Validation** : accueil personnalisé utilisé au quotidien pendant une semaine.
 
@@ -121,7 +122,7 @@ Décisions préalables : D15, D26, D29.
 - [ ] Comptage des ouvertures via `queryEvents` (`ACTIVITY_RESUMED`), avec regroupement selon D15 — logique pure + tests unitaires (F-3.2)
 - [ ] Exclusion d'Épure et du launcher système (F-3.2)
 - [ ] Écran Statistiques : total du jour, liste triée par temps (F-3.2)
-- [ ] Indicateur de temps d'écran sur l'accueil, si D26 le retient (lecture à la demande, au plus une fois par minute) (F-1.3)
+- Indicateur de temps d'écran sur l'accueil : non retenu (D26, DEC-0016).
 - [ ] État « permission absente » géré proprement
 
 ### Liste de contrôle sur le téléphone
@@ -130,7 +131,7 @@ Décisions préalables : D15, D26, D29.
 - [ ] Ouvrir une app 3 fois → 3 ouvertures
 - [ ] Permission retirée dans les réglages → l'écran le signale sans plantage
 - [ ] Écran affiché en moins d'une seconde
-- [ ] Indicateur d'accueil (si retenu) cohérent avec l'écran Statistiques ; accueil toujours instantané
+- [ ] Accueil toujours instantané après l'ajout des statistiques (indicateur non retenu, DEC-0016)
 - [ ] Écarts avec Bien-être numérique notés (attendus, non bloquants) — [À VÉRIFIER] rétention des données système
 
 **Validation** : chiffres jugés plausibles sur une semaine d'usage.

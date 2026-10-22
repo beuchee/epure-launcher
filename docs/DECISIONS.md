@@ -319,4 +319,24 @@
   - `HomeScreen.kt` : libellé cliquable ; la chaîne `home_apps` existait déjà dans `strings.xml`.
   - Le libellé cliquable donne aussi un accès à la liste à TalkBack, ce qui répond en partie au point signalé dans DEC-0014 (le balayage seul n'est pas accessible).
   - `SPEC.md` § 5 et § 12 mis à jour.
+- **Précision (22/10/2026)** : le libellé s'écrit en minuscules, « apps », pour s'accorder avec la date affichée en minuscules.
 - **Réversibilité** : facile (un bloc de code dans `HomeScreen.kt`).
+
+---
+
+## DEC-0016 — Statistiques du jalon 3 : aujourd'hui seulement, indicateur reporté, demande à l'usage
+
+- **Date** : 2026-10-22
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D15, D26, D29
+- **Contexte** : décisions préalables du jalon 3 (`ROADMAP.md`). Alain tranche selon les recommandations de `SPEC.md` § 12 et la sobriété (principe 2).
+- **Décision** :
+  - **D15** : statistiques pour aujourd'hui seulement, sans les 7 derniers jours. Pas d'historique local : Épure s'appuie sur ce que garde le système. Les reprises d'une même app séparées de moins de **5 secondes** comptent pour une seule ouverture (valeur initiale, à ajuster sur le téléphone).
+  - **D26** : pas d'indicateur de temps d'écran sur l'accueil pour l'instant. L'emplacement sous l'horloge reste réservé (DEC-0003).
+  - **D29** : l'accès aux statistiques est demandé au premier usage de l'écran Statistiques, via l'écran d'autorisation commun (T-1).
+- **Justification** : choix d'Alain. Limiter les données et les calculs à ce qui est utile ; pas de collecte en arrière-plan.
+- **Conséquences** :
+  - `SPEC.md` § 6 et § 12 mis à jour ; marques [À DÉCIDER] retirées pour D15, D26 et D29.
+  - `ROADMAP.md` : l'indicateur d'accueil du jalon 3 est non retenu.
+  - Pas de base de données propre à Épure pour les statistiques.
+- **Réversibilité** : facile pour le seuil et l'écran. Un historique ajouté plus tard ne couvrirait que les données collectées après.
