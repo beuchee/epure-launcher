@@ -102,6 +102,16 @@ fun HomeScreen(
             }
         }
         Spacer(Modifier.weight(1f))
+        // Grey label aligned with the favourites; tapping it also opens the list (DEC-0015).
+        Text(
+            text = stringResource(R.string.home_apps),
+            style = LabelStyle,
+            color = TextSecondary,
+            modifier = Modifier
+                .heightIn(min = 48.dp)
+                .clickable(onClick = onOpenList)
+                .padding(vertical = 4.dp)
+        )
         Shortcuts(shortcuts = shortcuts, onShortcut = onShortcut)
     }
 }

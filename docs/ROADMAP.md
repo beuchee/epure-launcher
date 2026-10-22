@@ -19,8 +19,8 @@ Préparatoire : aucune fonction visible, mais conditionne tout le reste.
 - [x] Vérifier l'absence d'app ou de projet homonyme « Épure / Epure » (GitHub, Play Store) avant de rendre le dépôt public — fait en octobre 2026 : aucun conflit pour un usage personnel et GitHub (`SPEC.md` § 2)
 - [x] Créer le projet Android Studio « Epure » (nom technique sans accent) : Kotlin, Compose, `applicationId` `com.alain.epure`, `minSdk` 31, `targetSdk`/`compileSdk` 36
 - [x] Définir `app_name` = « Épure » (avec accent) dans `res/values/strings.xml`
-- [ ] Créer le dépôt Git local ; configurer l'e-mail « noreply » de GitHub
-- [ ] Créer le dépôt public `epure-launcher` sur GitHub (description sans « minimalist phone » ni suggestion d'affiliation)
+- [x] Créer le dépôt Git local ; configurer l'e-mail « noreply » de GitHub
+- [x] Créer le dépôt public `epure-launcher` sur GitHub (description sans « minimalist phone » ni suggestion d'affiliation)
 - [x] Ajouter `LICENSE` (texte complet GPL v3)
 - [x] Vérifier le `.gitignore` Android (`local.properties`, `*.jks`, `*.keystore`, `build/`, `.idea/` partiel, `captures/`)
 - [x] Créer `docs/` avec `SPEC.md`, `ROADMAP.md`, `DECISIONS.md` (modèle d'entrée + DEC-0001 sur l'identité)
@@ -28,10 +28,10 @@ Préparatoire : aucune fonction visible, mais conditionne tout le reste.
 - [x] Rédiger `CLAUDE.md` : choix techniques figés, identité (`SPEC.md` § 2), règles du dépôt public, commandes de build/installation, consigne de lire `SPEC.md` (dont § 5 bis) et `ROADMAP.md` avant toute tâche
 - [x] README initial : titre « Épure », description, mention factuelle « inspiré de Minimalist Phone », section Confidentialité, licence
 - [x] Vérifier que le manifeste ne contient **pas** les permissions `INTERNET` ni `SYSTEM_ALERT_WINDOW`
-- [ ] Générer la clé de signature, la stocker **hors du dépôt** et la sauvegarder
+- [x] Générer la clé de signature, la stocker **hors du dépôt** et la sauvegarder
 - [x] Trancher D1, D2, D3, D11, D23
 - [x] Premier build installé sur le Samsung (`./gradlew installDebug`)
-- [ ] Premier push
+- [x] Premier push
 
 **Validation** : l'app « vide » s'installe et s'ouvre sur le téléphone sous le nom « Épure » ; `git status` propre ; aucun fichier sensible suivi par Git.
 

@@ -292,7 +292,7 @@
 ## DEC-0014 — Accès à la liste des apps : balayage de droite à gauche (remplace D5 de DEC-0003)
 
 - **Date** : 2026-10-21
-- **Statut** : Acceptée
+- **Statut** : Partiellement remplacée par DEC-0015 (suppression du libellé « Apps » ; le balayage reste)
 - **Décision(s) SPEC concernée(s)** : D5 (F-1.1, § 5)
 - **Décision** : le libellé « Apps » est supprimé de l'accueil. La liste des apps s'ouvre par un balayage de droite à gauche sur l'accueil. Le balayage vers le haut est remplacé.
 - **Justification** : choix d'Alain. Le geste est plus sobre qu'un libellé.
@@ -301,3 +301,22 @@
   - Les lecteurs d'écran (TalkBack) ne peuvent pas utiliser ce geste simplement : aucun accès alternatif à la liste n'est prévu. À revoir si le besoin apparaît.
   - Les favoris, icônes et menus ne sont pas affectés.
 - **Réversibilité** : facile (une fonction de geste et un libellé).
+
+---
+
+## DEC-0015 — Libellé « Apps » rétabli sur l'accueil (corrige le libellé de DEC-0014)
+
+- **Date** : 2026-10-22
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D5 (F-1.1, § 5)
+- **Contexte** : DEC-0014 avait supprimé le libellé « Apps » ; Alain revient sur ce choix. Sans libellé, rien à l'écran n'indique qu'un balayage ouvre la liste.
+- **Décision** :
+  - Le libellé « Apps » revient en bas à gauche de l'accueil, au-dessus de la rangée de raccourcis, aligné sur le bord des favoris, en gris (texte secondaire).
+  - Le balayage de droite à gauche est conservé.
+  - Un appui sur le libellé ouvre aussi la liste (zone tactile d'au moins 48 dp).
+- **Justification** : choix d'Alain. Le libellé rend le geste découvrable et reste sobre (texte seul, D28).
+- **Conséquences** :
+  - `HomeScreen.kt` : libellé cliquable ; la chaîne `home_apps` existait déjà dans `strings.xml`.
+  - Le libellé cliquable donne aussi un accès à la liste à TalkBack, ce qui répond en partie au point signalé dans DEC-0014 (le balayage seul n'est pas accessible).
+  - `SPEC.md` § 5 et § 12 mis à jour.
+- **Réversibilité** : facile (un bloc de code dans `HomeScreen.kt`).

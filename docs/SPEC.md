@@ -1,6 +1,6 @@
 # Épure — Cahier des charges (SPEC)
 
-> Version 0.5 — 21 octobre 2026
+> Version 0.7 — 22 octobre 2026
 > Statut : brouillon de référence. Les points marqués **[À DÉCIDER]** ne sont pas tranchés ; ils ne doivent pas être implémentés comme s'ils l'étaient. Une fois tranchés, les consigner dans `DECISIONS.md` puis mettre à jour ce document.
 > Les points marqués **[À VÉRIFIER]** reposent sur un comportement Android/One UI à confirmer sur l'appareil de test.
 >
@@ -10,6 +10,8 @@
 > - 0.3 (21/10/2026) : identité précisée (§ 2) — dépôt GitHub `epure-launcher`, marque tierce, homonymes vérifiés en octobre 2026 ; conditions de nom avant une publication sur le Play Store (§ 10) ; lien « À propos » vers le dépôt (F-1.5).
 > - 0.4 (21/10/2026) : nom distinctif et portée tranchés (`DECISIONS.md` DEC-0001) — « Épure » sur le téléphone, « Épure – launcher minimaliste » comme titre de la fiche Play Store uniquement ; D24 réduite au choix du mode de publication.
 > - 0.5 (21/10/2026) : D1, D2, D3, D11 et D23 tranchées (`DECISIONS.md` DEC-0002) ; marques [À DÉCIDER] retirées pour ces points.
+> - 0.6 (22/10/2026) : D5 (balayage de droite à gauche, DEC-0014), D13 (icônes des raccourcis, DEC-0013) et menu depuis l'accueil (T-2, DEC-0012) intégrés ; D27 reste reporté.
+> - 0.7 (22/10/2026) : libellé « Apps » rétabli en bas à gauche de l'accueil (DEC-0015) ; le balayage reste.
 
 ---
 
@@ -95,11 +97,11 @@ Conclusion : **aucun conflit pour un usage personnel et pour le dépôt GitHub.*
 | Choix de la durée | Avant ouverture d'une app avec minuteur | 4 |
 | Écran « Temps écoulé » / « App bloquée » | Affiché quand une app est fermée ou bloquée | 4 |
 
-**Navigation entre accueil et liste des apps (D5, DEC-0003)** : balayage vers le haut depuis l'accueil, ouvrant la liste avec le champ de recherche actif, plus un libellé discret « Apps » en bas de l'accueil.
+**Navigation entre accueil et liste des apps (D5, DEC-0014 et DEC-0015)** : balayage de droite à gauche depuis l'accueil, ouvrant la liste avec le champ de recherche actif. Un libellé « Apps » gris, en bas à gauche de l'accueil, ouvre aussi la liste (DEC-0015).
 
 **Accès aux Paramètres (D6, DEC-0003)** : depuis la liste des apps, coin inférieur droit. Pas d'appui long sur l'accueil au jalon 1.
 
-**Pictogrammes d'interface (D28, DEC-0003)** : texte seul, sans pictogramme (ni loupe ni roue dentée).
+**Pictogrammes d'interface (D28, DEC-0003)** : texte seul, sans pictogramme (ni loupe ni roue dentée). Exception : les trois raccourcis de l'accueil, en icônes simples (DEC-0013).
 
 ## 5 bis. Référence visuelle — analyse des captures
 
@@ -158,7 +160,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 
 - Exclus : « Masquer » (fonction écartée), « Déplacer vers un dossier » (non retenue).
 - Une action indisponible (permission absente) reste visible mais grisée, avec un appui qui ouvre l'écran d'autorisation (T-1).
-- Même menu depuis un favori de l'accueil **[À DÉCIDER]**.
+- Même menu depuis un favori de l'accueil (DEC-0012).
 
 *Critères* : chaque action produit l'effet attendu ; aucune action d'un jalon non encore implémenté n'apparaît.
 
@@ -174,7 +176,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Au premier lancement, si Épure n'est pas l'écran d'accueil par défaut, proposer de le devenir via `RoleManager` (`ROLE_HOME`, disponible depuis Android 10).
 - Appui sur le bouton Accueil quand Épure est déjà affiché : retour à l'état initial de l'accueil (recherche effacée, clavier fermé, menu d'appui long fermé).
 - Bouton Retour sur l'accueil : sans effet (ne quitte pas le launcher). Retour depuis la liste des apps : revient à l'accueil.
-- Geste d'accès à la liste des apps selon D5 (balayage vers le haut recommandé).
+- Geste d'accès à la liste des apps selon D5 : balayage de droite à gauche (DEC-0014).
 
 *Critères* : Épure peut être choisi comme launcher par défaut sur le Samsung ; Accueil ramène toujours à l'écran d'accueil propre ; Retour ne fait pas « sortir » du launcher ; le geste choisi ne se déclenche pas par erreur lors d'un simple toucher.
 
@@ -237,7 +239,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Trois raccourcis : **appareil photo**, **téléphone**, **horloge**.
 - Comportement par défaut : intents système génériques (appareil photo : `MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA` ; téléphone : `Intent.ACTION_DIAL` ; horloge : `AlarmClock.ACTION_SHOW_ALARMS`).
 - Personnalisation : chaque raccourci peut pointer vers n'importe quelle app installée, ou être désactivé.
-- **[À DÉCIDER (D13)]** Emplacement et forme : libellés texte en bas de l'accueil (cohérent avec le « texte seul »), ou gestes (balayage gauche/droite). Les icônes sont exclues par principe, sauf décision contraire explicite.
+- **Décidé (D13, DEC-0013)** : trois icônes simples (Material Symbols, Apache 2.0) en bas de l'accueil, par dérogation à D28 pour ces seuls raccourcis. Personnalisables dans Paramètres > Raccourcis (app choisie, retour au défaut, ou désactivé).
 
 #### F-2.3 Espaces vides
 - Possibilité d'insérer des séparateurs vides entre les favoris pour aérer la disposition.
@@ -394,7 +396,7 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D2 | Persistance : DataStore seul ou DataStore + Room (**tranchée : DEC-0002**) | 1 / 4 | — |
 | D3 | `LauncherApps` ou `PackageManager` (**tranchée : DEC-0002**) | 1 | — |
 | D4 | Profil professionnel / Dossier sécurisé (**tranchée : DEC-0003**) | 1 | — |
-| D5 | Passage accueil ↔ liste des apps (geste, libellé) (**tranchée : DEC-0003**) | 1 | Référence : balayage vers le haut → recherche |
+| D5 | Passage accueil ↔ liste des apps (geste, libellé) (**tranchée : DEC-0003, puis DEC-0014 et DEC-0015** : balayage de droite à gauche, avec libellé « Apps » en bas à gauche) | 1 | Référence : balayage vers le haut → recherche |
 | D6 | Accès aux Paramètres (**tranchée : DEC-0003**) | 1 | Référence : depuis l'écran de la liste des apps |
 | D7 | Clavier automatique ; lancement auto si un seul résultat (**tranchée : DEC-0003**) | 1 | Référence : clavier ouvert d'emblée |
 | D8 | Recherche sur le nom d'origine des apps renommées (**reportée au jalon 2, DEC-0003**) | 1 / 2 | — |
@@ -402,7 +404,7 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D10 | Appui sur la date (**tranchée : DEC-0003**) | 1 | — |
 | D11 | Langue(s) de l'interface ; tutoiement ou vouvoiement (**tranchée : DEC-0002**) | 1 | Référence : tutoiement |
 | D12 | Nombre max de favoris | 2 | — |
-| D13 | Forme et emplacement des raccourcis | 2 | — |
+| D13 | Forme et emplacement des raccourcis (**tranchée : DEC-0013**, icônes simples en bas de l'accueil) | 2 | — |
 | D14 | Longueur max des noms personnalisés | 2 | — |
 | D15 | Période des statistiques ; historique local ; seuil de regroupement des ouvertures | 3 | — |
 | D16 | Durées proposées par le minuteur | 4 | — |
@@ -416,7 +418,7 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D24 | Publication : Play Store, F-Droid, aucune (le nom distinctif et sa portée sont tranchés : DEC-0001) | Après 5 | — |
 | D25 | Index alphabétique : oui ou non (**non au jalon 1, DEC-0003**) | 1 | Présent dans la référence |
 | D26 | Indicateur de temps d'écran sur l'accueil (arc ou trait) : oui ou non | 1 (emplacement) / 3 (données) | Arc autour de l'heure dans la référence, signification non confirmée |
-| D27 | Guide de premier lancement : oui ou non ; nombre de cartes | 2 | Référence : 9 cartes de conseils |
+| D27 | Guide de premier lancement : oui ou non ; nombre de cartes (**reporté : DEC-0012**) | 2 | Référence : 9 cartes de conseils |
 | D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul (**tranchée : DEC-0003**) | 1 | Référence : loupe et roue dentée |
 | D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
 | D30 | Durée maximale et durées proposées pour le blocage prolongé | 4 | Référence : jusqu'à 30 jours |
