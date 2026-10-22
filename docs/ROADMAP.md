@@ -1,6 +1,6 @@
 # Épure — Feuille de route (ROADMAP)
 
-> Version 0.4 — 21 octobre 2026
+> Version 0.5 — 22 octobre 2026
 > Règle : **chaque jalon produit une application fonctionnelle, testée sur le téléphone (Samsung, Android 16 / One UI 8.0), avant de passer au suivant.** Commit Git après chaque étape validée sur le téléphone. Une session Claude Code par jalon ou par tâche.
 > Références : exigences `F-x.y` / `T-n` et décisions `Dx` dans `SPEC.md`. Une décision `Dx` doit être consignée dans `DECISIONS.md` **avant** la tâche qui en dépend.
 >
@@ -9,6 +9,7 @@
 > - 0.2 (21/10/2026) : intégration de l'analyse des captures de référence (`SPEC.md` § 5 bis) — geste d'accès à la liste, index alphabétique, menu d'appui long progressif (T-2), écran d'autorisation commun (T-1), guide de premier lancement (T-3), durée max de blocage ; décisions D25 à D31 réparties dans les jalons.
 > - 0.3 (21/10/2026) : identité (`SPEC.md` § 2) — vérification des homonymes cochée (faite en octobre 2026) ; création du dépôt GitHub `epure-launcher` ; nom affiché « Épure » dans `strings.xml` ; conditions de nom avant le Play Store.
 > - 0.4 (21/10/2026) : DEC-0001 consignée dans `DECISIONS.md` (nom sur le téléphone « Épure » ; titre de fiche Play Store « Épure – launcher minimaliste ») ; `DECISIONS.md` créé avec modèle d'entrée.
+> - 0.5 (22/10/2026) : section transversale « Batterie et mémoire » ajoutée (mesures et seuils à fixer) ; cases du jalon 0 (dépôt, clé, premier push) cochées.
 
 ---
 
@@ -213,6 +214,24 @@ Décisions préalables : D21, D22.
 - [ ] Niveau de gris activé par One UI non perturbé par Épure
 
 **Validation** : version 1.0 utilisée au quotidien pendant deux semaines.
+
+---
+
+## Transversal — Batterie et mémoire
+
+Objectif : Épure reste léger à chaque jalon (`SPEC.md` § 4, principe 2 ; § 9). À mesurer sur le Samsung. L'exclusion de l'optimisation de batterie reste au jalon 4 (D20).
+
+### Tâches
+- [ ] Relever la consommation de batterie d'Épure sur 24 h d'usage normal (Réglages > Batterie, ou `adb shell dumpsys batterystats`)
+- [ ] Relever la mémoire utilisée par Épure à l'accueil et après ouverture de la liste (`adb shell dumpsys meminfo com.alain.epure`)
+- [ ] Vérifier dans le code et le manifeste qu'aucun service, alarme ou tâche planifiée ne tourne en permanence (F-1.3, F-2.1)
+- [ ] Vérifier que l'horloge ne se met à jour que lorsque l'écran d'accueil est visible
+- [ ] Fixer les seuils chiffrés de consommation et de mémoire après la première mesure **[À DÉCIDER : seuils]**
+
+### Liste de contrôle sur le téléphone
+- [ ] Consommation de batterie sur 24 h jugée normale par Alain
+- [ ] Mémoire stable après une heure d'usage (pas de hausse continue)
+- [ ] Aucun service actif à l'accueil au repos
 
 ---
 
