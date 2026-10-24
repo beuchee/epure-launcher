@@ -131,8 +131,8 @@ Décisions préalables : D15, D26, D29.
 - [x] Une app utilisée 5 minutes volontairement apparaît avec 5 min (± 1)
 - [x] Ouvrir une app 3 fois → 3 ouvertures
 - [x] Permission retirée dans les réglages → l'écran le signale sans plantage
-- [ ] Écran affiché en moins d'une seconde
-- [ ] Accueil toujours instantané après l'ajout des statistiques (indicateur non retenu, DEC-0016)
+- [x] Écran affiché en moins d'une seconde (affichage quasi immédiat, validé le 24/10/2026)
+- [x] Accueil toujours instantané après l'ajout des statistiques (indicateur non retenu, DEC-0016)
 - [ ] Écarts avec Bien-être numérique notés (attendus, non bloquants) — [À VÉRIFIER] rétention des données système
 
 **Validation** : chiffres jugés plausibles sur une semaine d'usage.
