@@ -103,7 +103,7 @@
 ## DEC-0003 — Choix d'interface du jalon 1 (D4, D5, D6, D7, D8, D9, D10, D25, D26, D28, D31)
 
 - **Date** : 2026-10-21
-- **Statut** : Acceptée (D8 : report, voir ci-dessous)
+- **Statut** : Acceptée (D8 : report, voir ci-dessous ; D25 : remplacée par DEC-0017)
 - **Décision(s) SPEC concernée(s)** : D4, D5, D6, D7, D8, D9, D10, D25, D26, D28, D31
 - **Contexte** : le jalon 1 pose la navigation, la liste des apps et le menu d'appui long. Ces points doivent être tranchés avant leurs tâches (`CLAUDE.md`).
 - **Options envisagées** : pour chaque point, les options de `SPEC.md` ; la recommandation de `SPEC.md` a été retenue dans tous les cas.
@@ -340,3 +340,69 @@
   - `ROADMAP.md` : l'indicateur d'accueil du jalon 3 est non retenu.
   - Pas de base de données propre à Épure pour les statistiques.
 - **Réversibilité** : facile pour le seuil et l'écran. Un historique ajouté plus tard ne couvrirait que les données collectées après.
+
+---
+
+## DEC-0017 — Index alphabétique retenu au jalon 1 (D25)
+
+- **Date** : 2026-10-24
+- **Statut** : Acceptée. Remplace la partie « D25 » de DEC-0003.
+- **Décision(s) SPEC concernée(s)** : D25, F-1.6
+- **Contexte** : DEC-0003 avait écarté l'index. Après l'usage, Alain le souhaite, et la validation du jalon 1 attend son test.
+- **Décision** :
+  - Colonne verticale de lettres à droite de la liste, seules les lettres présentes dans la liste.
+  - Lettres accentuées regroupées avec leur lettre de base (« Éclair » sous E) ; chiffres et symboles regroupés sous « # », placés en tête.
+  - Toucher ou glisser sur une lettre fait défiler jusqu'à la première app de cette lettre, sans animation.
+  - Masqué pendant une recherche.
+  - TalkBack : chaque lettre est proposée comme action personnalisée (« Aller à la lettre M »).
+- **Justification** : demande d'Alain. La colonne reste sobre (texte seul, couleur secondaire) et ne change ni la recherche ni le tri.
+- **Conséquences** :
+  - `domain/AlphabetIndex.kt` (logique pure) et `ui/LetterIndex.kt` (composant) ; tests dans `AlphabetIndexTest.kt`.
+  - Les écritures non latines (grec, cyrillique) sont regroupées sous « # ».
+  - `SPEC.md` F-1.6, § 5 et § 12 mis à jour.
+- **Réversibilité** : facile (un composant et une condition d'affichage).
+
+---
+
+## DEC-0018 — Minuteur, ouverture hors Épure et batterie (D16, D17, D18, D19, D20)
+
+- **Date** : 2026-10-24
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D16, D17, D18, D19, D20
+- **Décision** :
+  - **D16** : durées du minuteur 1, 5, 10, 15 et 30 min. Pas de saisie libre.
+  - **D17** : une app avec minuteur ouverte hors Épure sans session active renvoie à l'accueil, puis demande une durée.
+  - **D18** : levée anticipée d'un blocage possible librement.
+  - **D19** : aucune friction avant de désactiver le service d'accessibilité (contournement assumé).
+  - **D20** : exclusion de l'optimisation de batterie par simple lien vers le réglage One UI. Pas de permission `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`.
+- **Justification** : propositions acceptées par Alain. Épure est un outil d'aide volontaire, pas un contrôle parental (SPEC F-4.0). La permission de batterie est restreinte par le Play Store, et le lien suffit.
+- **Conséquences** :
+  - Pas de nouvelle permission ; manifeste inchangé.
+  - Écran de durée limité à cinq valeurs.
+  - `SPEC.md` F-4.0, F-4.1, F-4.3 et § 8 mis à jour.
+- **Réversibilité** : facile (valeurs et textes). Si D18 ou D19 se révèlent insuffisants à l'usage, une friction pourra être ajoutée plus tard.
+
+---
+
+## DEC-0019 — Durée maximale du blocage prolongé (D30)
+
+- **Date** : 2026-10-24
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : D30 (F-4.3)
+- **Décision** : durées proposées 1 h, 4 h, jusqu'à demain matin, 1 j, 7 j. Durée maximale : **7 jours**. La saisie d'une date libre n'est pas retenue.
+- **Justification** : proposition acceptée par Alain. La référence va jusqu'à 30 jours ; 7 jours suffisent à un blocage volontaire et évitent un blocage que l'on ne peut plus lever en pratique.
+- **Conséquences** : le blocage au-delà de 7 jours est impossible à saisir (critère de la ROADMAP, jalon 4). `SPEC.md` F-4.3 et § 12 mis à jour.
+- **Réversibilité** : facile (une constante).
+
+---
+
+## DEC-0020 — Clé des noms personnalisés : paquet et classe (confirme DEC-0010)
+
+- **Date** : 2026-10-24
+- **Statut** : Acceptée
+- **Décision(s) SPEC concernée(s)** : F-2.4 (D4)
+- **Contexte** : `SPEC.md` F-2.4 incluait le profil utilisateur dans la clé de stockage, alors que DEC-0010 le exclut. Les profils restent ignorés au jalon 1 (D4).
+- **Décision** : la clé d'un nom personnalisé est le paquet et la classe de l'app, sans profil utilisateur (DEC-0010 maintenue).
+- **Justification** : choix d'Alain. Le code fonctionne déjà ainsi (`LaunchableApp.key`) ; la version simple évite une migration.
+- **Conséquences** : `SPEC.md` F-2.4 corrigé. Aucun changement de code.
+- **Réversibilité** : moyenne. Ajouter le profil plus tard obligerait à migrer les noms déjà enregistrés.

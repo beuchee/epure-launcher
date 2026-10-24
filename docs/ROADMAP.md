@@ -11,6 +11,7 @@
 > - 0.4 (21/10/2026) : DEC-0001 consignée dans `DECISIONS.md` (nom sur le téléphone « Épure » ; titre de fiche Play Store « Épure – launcher minimaliste ») ; `DECISIONS.md` créé avec modèle d'entrée.
 > - 0.5 (22/10/2026) : section transversale « Batterie et mémoire » ajoutée (mesures et seuils à fixer) ; cases du jalon 0 (dépôt, clé, premier push) cochées.
 > - 0.6 (22/10/2026) : jalon 2 validé sauf « une semaine d'usage » ; guide reporté (D27) ; indicateur d'accueil du jalon 3 non retenu (DEC-0016).
+> - 0.7 (24/10/2026) : index alphabétique retenu au jalon 1 (DEC-0017) ; usage de 3 jours du jalon 1 validé ; D16 à D20 et D30 tranchés (DEC-0018, DEC-0019).
 
 ---
 
@@ -54,7 +55,7 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 - [x] Horloge et date (format selon F-1.3), mise à jour à la minute sans service permanent (F-1.3)
 - [x] Fonction pure de normalisation et de recherche (accents, casse, ordre) + tests unitaires (F-1.4)
 - [x] Écran de recherche branché sur la liste : champ minimal, clavier selon D7, message « Aucune app », aucune ouverture web (F-1.4)
-- [ ] Index alphabétique, si D25 le retient (non retenu, DEC-0003) : fonction pure de calcul des initiales + tests unitaires, puis composant (F-1.6)
+- [x] Index alphabétique, retenu (DEC-0017) : fonction pure de calcul des initiales + tests unitaires, puis composant (F-1.6)
 - [x] Menu d'appui long (T-2), version jalon 1 : « Infos de l'app » seule (« Désinstaller » retiré, DEC-0009) ; titre = nom affiché
 - [x] Favoris depuis le menu d'appui long, affichés sous l'horloge, maximum 7 (F-2.1, DEC-0010)
 - [x] Renommage depuis le menu d'appui long, 30 caractères, réinitialisation (F-2.4, DEC-0010)
@@ -68,7 +69,7 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 - [x] Toutes les apps lançables présentes ; installer puis désinstaller une app met la liste à jour
 - [x] Recherche « eclair » trouve une app nommée « Éclair » ; recherche sans résultat → aucun navigateur ne s'ouvre
 - [x] Clavier ouvert à l'ouverture de la liste (si D7 le retient)
-- [ ] Index alphabétique (si retenu) : seules les lettres présentes ; toucher une lettre amène la bonne app
+- [x] Index alphabétique (retenu, DEC-0017) : seules les lettres présentes ; toucher une lettre amène la bonne app
 - [x] Appui long : menu lisible ; « Infos de l'app » ouvre la bonne fiche (« Désinstaller » retiré, DEC-0009)
 - [x] Heure juste à la minute, y compris après 1 h de veille
 - [x] Taille de police système agrandie : affichage lisible, sans texte tronqué gênant
@@ -77,7 +78,7 @@ Décisions préalables : D4, D5, D6, D7, D8, D9, D10, D25, D28, D31 (et choisir 
 - [x] « À propos » : nom, version, licence et lien vers le dépôt corrects
 - [x] Rotation de l'écran / mode multifenêtre : pas de plantage
 
-**Validation** : utilisation d'Épure comme launcher principal pendant 3 jours sans blocage.
+**Validation** : utilisation d'Épure comme launcher principal pendant 3 jours sans blocage — **faite (24/10/2026)**. Index validé sur le téléphone (24/10/2026) : **jalon 1 clos**.
 
 ---
 
@@ -142,7 +143,7 @@ Décisions préalables : D15, D26, D29.
 
 > Jalon le plus délicat (accessibilité + batterie One UI). Le découper en sessions Claude Code distinctes : 4a socle, 4b minuteur, 4c blocages.
 
-Décisions préalables : D16, D17, D18, D19, D20, D30 ; réévaluer D2 (Room ?).
+Décisions préalables : D16, D17, D18, D19, D20, D30 (tranchées : DEC-0018, DEC-0019) ; réévaluer D2 (Room ?).
 
 ### 4a — Socle : service d'accessibilité
 - [ ] Déclaration du service, configuration minimale (`TYPE_WINDOW_STATE_CHANGED`, `canRetrieveWindowContent="false"`) (F-4.0)

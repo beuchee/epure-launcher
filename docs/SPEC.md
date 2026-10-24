@@ -14,6 +14,7 @@
 > - 0.7 (22/10/2026) : libellé « Apps » rétabli en bas à gauche de l'accueil (DEC-0015) ; le balayage reste.
 > - 0.8 (22/10/2026) : statistiques du jalon 3 : aujourd'hui seulement, pas d'historique, regroupement de 5 secondes, pas d'indicateur d'accueil, demande d'accès au premier usage (DEC-0016).
 > - 0.9 (22/10/2026) : comportement normal des statistiques noté dans F-3.2 (temps compté à la sortie du premier plan ; musique en arrière-plan non comptée).
+> - 0.10 (24/10/2026) : index alphabétique retenu (DEC-0017) ; D16 à D20 tranchés (DEC-0018) ; durée maximale du blocage fixée à 7 jours (D30, DEC-0019) ; clé des noms personnalisés sans profil, comme DEC-0010 (DEC-0020).
 
 ---
 
@@ -118,7 +119,7 @@ Les captures annotées de Minimalist Phone sont conservées **uniquement** dans 
 | Balayage vers le haut depuis l'accueil pour rechercher | Geste proposé pour ouvrir la liste/recherche | F-1.1, D5 |
 | Liste : noms d'apps seuls, très grande police, interligne généreux, marge gauche, aucun pictogramme | Repris dans l'esprit ; tailles exprimées en `sp` pour respecter le réglage de taille de police | F-1.2 |
 | Recherche : champ réduit à une ligne soulignée, loupe à droite, clavier ouvert d'emblée et curseur actif | Champ minimal ; clavier ouvert automatiquement (à confirmer) | F-1.4, D7 |
-| Index alphabétique vertical à droite de la liste ; seules les lettres présentes y figurent | Proposé comme option | F-1.6, D25 |
+| Index alphabétique vertical à droite de la liste ; seules les lettres présentes y figurent | Retenu au jalon 1 (DEC-0017) | F-1.6, D25 |
 | Appui long : fenêtre noire à fin liseré blanc et coins arrondis, nom de l'app en titre souligné d'un trait, actions en liste texte, arrière-plan assombri. Actions : rappel de consommation (interrupteur), favoris, bloquer, renommer, masquer, déplacer vers un dossier, désinstaller, description de l'app. Une action indisponible apparaît grisée | Menu texte de même sobriété, contenu adapté aux fonctions retenues d'Épure (masquage et dossiers exclus) | T-2, D9 |
 | Blocage d'une app jusqu'à 30 jours (texte d'aide partiellement visible) | Durée maximale de blocage à fixer | F-4.3, D30 |
 | Cartes de conseils numérotées (1/9 à 9/9) au-dessus de la liste au premier usage : rechercher plutôt que parcourir, choisir ses favoris avec soin, appui long pour les actions | Guide court optionnel, textes propres à Épure | T-3, D27 |
@@ -223,10 +224,10 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 *Critères* : depuis Épure, l'utilisateur revient à One UI Home en deux actions au plus après « Changer de launcher ».
 
 #### F-1.6 Index alphabétique
-- Non implémenté au jalon 1 (D25, DEC-0003). Argument pour : navigation rapide dans une longue liste. Argument contre : favorise le défilement, que la recherche cherche justement à éviter. À reconsidérer plus tard.
-- Si retenu : colonne verticale de lettres, à droite de la liste ; seules les initiales présentes dans la liste y figurent (lettres accentuées regroupées avec leur lettre de base ; chiffres et symboles regroupés sous « # ») ; toucher ou glisser sur une lettre fait défiler jusqu'à la première app correspondante, sans animation superflue ; masqué pendant une recherche.
+- Retenu au jalon 1 (D25, DEC-0017, qui remplace DEC-0003 sur ce point).
+- Colonne verticale de lettres, à droite de la liste ; seules les initiales présentes dans la liste y figurent (lettres accentuées regroupées avec leur lettre de base ; chiffres et symboles regroupés sous « # ») ; toucher ou glisser sur une lettre fait défiler jusqu'à la première app correspondante, sans animation superflue ; masqué pendant une recherche.
 
-*Critères (si retenu)* : toucher « M » amène la première app en M en haut de l'écran ; une lettre sans app n'apparaît pas.
+*Critères* : toucher « M » amène la première app en M en haut de l'écran ; une lettre sans app n'apparaît pas.
 
 ### Jalon 2 — Personnalisation de l'accueil
 
@@ -251,7 +252,7 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - Depuis l'appui long (T-2) ou les Paramètres : définir un nom personnalisé.
 - **Seul le nom personnalisé** apparaît dans la liste, les favoris, le titre du menu d'appui long et la recherche (sous réserve de D8).
 - Le **nom d'origine** n'est visible que dans les Paramètres d'Épure (écran « Apps renommées »), où le nom personnalisé est modifiable ou réinitialisable à tout moment.
-- Clé de stockage : composant de l'activité (paquet + classe) + profil utilisateur, pour éviter les collisions.
+- Clé de stockage : paquet et classe de l'activité, sans profil utilisateur (DEC-0010, DEC-0020).
 - Nom personnalisé vide refusé ; longueur maximale : **30 caractères** (D14, DEC-0010).
 
 *Critères* : le renommage survit au redémarrage du téléphone et à la mise à jour de l'app renommée ; la réinitialisation restaure le nom système.
@@ -285,14 +286,14 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 - **Limite importante** : Android ne permet pas à Épure de fermer réellement une autre app. « Fermer » signifie **renvoyer à l'accueil** ; l'app reste en mémoire et reste accessible par les apps récentes (d'où la surveillance continue décrite ci-dessous).
 - Activation : par l'utilisateur, dans les réglages d'accessibilité, précédée de l'écran d'autorisation commun (T-1) : ce que fait le service, ce qu'il ne fait pas, données non lues.
 - **[À VÉRIFIER]** « Paramètres restreints » (Android 13+) : selon le mode d'installation, Android peut bloquer l'activation de l'accessibilité et de l'écoute des notifications pour une app hors Play Store ; l'utilisateur doit alors l'autoriser dans les infos de l'app. Vérifier avec une installation par Android Studio / ADB et documenter la procédure dans le README.
-- Batterie One UI : guider l'utilisateur pour exclure Épure de l'optimisation de batterie (« Applis jamais en veille » sous One UI). **[À DÉCIDER (D20)]** Demande directe via `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS` (simple, mais strictement encadrée sur le Play Store) ou simple lien vers le réglage.
-- **Contournement assumé** : l'utilisateur peut toujours désactiver le service dans les réglages. Épure est un outil d'aide volontaire, pas un contrôle parental ; aucune mesure anti-contournement **[À DÉCIDER (D19) si l'on souhaite une friction, ex. délai avant désactivation dans Épure]**.
+- Batterie One UI : guider l'utilisateur pour exclure Épure de l'optimisation de batterie (« Applis jamais en veille » sous One UI). **Décidé (D20, DEC-0018)** : simple lien vers le réglage, sans `REQUEST_IGNORE_BATTERY_OPTIMIZATIONS`.
+- **Contournement assumé** : l'utilisateur peut toujours désactiver le service dans les réglages. Épure est un outil d'aide volontaire, pas un contrôle parental ; aucune mesure anti-contournement (D19, DEC-0018).
 
 #### F-4.1 Minuteur par session
 - Marquer certaines apps « avec minuteur » : interrupteur dans le menu d'appui long (T-2) et liste récapitulative dans les Paramètres.
-- Au lancement d'une telle app depuis Épure : écran de choix de la durée **[À DÉCIDER (D16) : valeurs proposées, ex. 1 / 5 / 10 / 15 / 30 min, et saisie libre ?]**, puis lancement.
+- Au lancement d'une telle app depuis Épure : écran de choix de la durée : **1, 5, 10, 15 ou 30 min**, sans saisie libre (D16, DEC-0018), puis lancement.
 - L'échéance est enregistrée de façon persistante (horodatage de fin), pour survivre à un arrêt du processus.
-- **[À DÉCIDER (D17)] Ouverture hors Épure** (apps récentes, notification, lien depuis une autre app) d'une app avec minuteur sans session active : renvoyer à l'accueil et demander une durée (cohérent, mais intrusif), ou laisser faire.
+- **Ouverture hors Épure** (apps récentes, notification, lien depuis une autre app) d'une app avec minuteur sans session active : renvoyer à l'accueil et demander une durée (D17, DEC-0018).
 
 #### F-4.2 Fermeture automatique
 - À l'échéance, si l'app minutée est au premier plan : retour à l'accueil et écran « Temps écoulé ».
@@ -302,10 +303,10 @@ Utilisé pour chaque accès spécial : statistiques d'usage (jalon 3), accessibi
 
 #### F-4.3 Blocage prolongé
 - Bloquer une ou plusieurs apps pour une durée (heures ou jours) ou jusqu'à une date/heure, depuis l'action « Bloquer… » du menu d'appui long (T-2) ou les Paramètres.
-- **[À DÉCIDER (D30)]** Durée maximale (la référence plafonne à 30 jours) et durées proposées (ex. 1 h, 4 h, jusqu'à demain matin, 1 j, 7 j, date libre).
+- **Décidé (D30, DEC-0019)** : durées proposées 1 h, 4 h, jusqu'à demain matin, 1 j, 7 j ; durée maximale 7 jours (la référence va jusqu'à 30 jours). Pas de date libre.
 - Pendant le blocage, toute ouverture de l'app (quel que soit le chemin) renvoie à l'accueil avec l'écran « App bloquée jusqu'à … ».
 - Dans la liste des apps, une app bloquée reste visible (le masquage est écarté) **[À DÉCIDER : avec mention « bloquée » ou en gris]**.
-- **[À DÉCIDER (D18)]** Levée anticipée du blocage : impossible, possible avec friction (délai d'attente, saisie d'une phrase), ou possible librement.
+- **Décidé (D18, DEC-0018)** : levée anticipée du blocage possible librement.
 
 #### F-4.4 Plages horaires programmées
 - Définir des plages (jours de la semaine + heure de début + heure de fin, y compris plages passant minuit) pendant lesquelles une liste d'apps est bloquée.
@@ -350,7 +351,7 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | `REQUEST_DELETE_PACKAGES` | Normale (à l'installation) | Action « Désinstaller » directe (T-2) | 1 | Automatique — **uniquement si D31 retient l'intent direct** |
 | `PACKAGE_USAGE_STATS` | Spéciale | Statistiques (et indicateur D26 éventuel) | 3 | Réglage système (T-1) |
 | Service d'accessibilité (`BIND_ACCESSIBILITY_SERVICE`) | Service lié | Minuteur, blocages | 4 | Réglage accessibilité (T-1) |
-| Exclusion de l'optimisation de batterie | Réglage | Fiabilité du jalon 4 | 4 | Réglage One UI **[À DÉCIDER (D20) : demande directe ou lien]** |
+| Exclusion de l'optimisation de batterie | Réglage | Fiabilité du jalon 4 | 4 | Réglage One UI (simple lien, D20, DEC-0018) |
 | Écoute des notifications (`BIND_NOTIFICATION_LISTENER_SERVICE`) | Service lié | Filtre de notifications | 5 | Réglage système (T-1) |
 | `WRITE_SECURE_SETTINGS` | Signature/développement | Niveaux de gris | 5 | ADB, une fois |
 | `INTERNET` | — | **Non déclarée** (garantie de confidentialité) | — | — |
@@ -410,19 +411,19 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D13 | Forme et emplacement des raccourcis (**tranchée : DEC-0013**, icônes simples en bas de l'accueil) | 2 | — |
 | D14 | Longueur max des noms personnalisés | 2 | — |
 | D15 | Période des statistiques ; historique local ; seuil de regroupement des ouvertures (**tranchée : DEC-0016**) | 3 | — |
-| D16 | Durées proposées par le minuteur | 4 | — |
-| D17 | Ouverture hors Épure d'une app avec minuteur | 4 | — |
-| D18 | Levée anticipée d'un blocage | 4 | — |
-| D19 | Friction avant désactivation du service | 4 | — |
-| D20 | Exclusion de batterie : demande directe ou lien | 4 | — |
+| D16 | Durées proposées par le minuteur (**tranchée : DEC-0018**) | 4 | — |
+| D17 | Ouverture hors Épure d'une app avec minuteur (**tranchée : DEC-0018**) | 4 | — |
+| D18 | Levée anticipée d'un blocage (**tranchée : DEC-0018**) | 4 | — |
+| D19 | Friction avant désactivation du service (**tranchée : DEC-0018**) | 4 | — |
+| D20 | Exclusion de batterie : demande directe ou lien (**tranchée : DEC-0018**) | 4 | — |
 | D21 | Filtre de notifications : suppression, report ou récapitulatif ; lien avec les plages | 5 | — |
 | D22 | Niveaux de gris : manuel ou programmé | 5 | — |
 | D23 | Sauvegarde Android (`allowBackup`) (**tranchée : DEC-0002**) | 1 | — |
 | D24 | Publication : Play Store, F-Droid, aucune (le nom distinctif et sa portée sont tranchés : DEC-0001) | Après 5 | — |
-| D25 | Index alphabétique : oui ou non (**non au jalon 1, DEC-0003**) | 1 | Présent dans la référence |
+| D25 | Index alphabétique : oui ou non (**oui, retenu au jalon 1 : DEC-0017**) | 1 | Présent dans la référence |
 | D26 | Indicateur de temps d'écran sur l'accueil (arc ou trait) : oui ou non (**tranchée : DEC-0016** : non) | 1 (emplacement) / 3 (données) | Arc autour de l'heure dans la référence, signification non confirmée |
 | D27 | Guide de premier lancement : oui ou non ; nombre de cartes (**reporté : DEC-0012**) | 2 | Référence : 9 cartes de conseils |
 | D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul (**tranchée : DEC-0003**) | 1 | Référence : loupe et roue dentée |
 | D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial (**tranchée : DEC-0016** : à l'usage) | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
-| D30 | Durée maximale et durées proposées pour le blocage prolongé | 4 | Référence : jusqu'à 30 jours |
+| D30 | Durée maximale et durées proposées pour le blocage prolongé (**tranchée : DEC-0019**) | 4 | Référence : jusqu'à 30 jours |
 | D31 | « Désinstaller » : intent direct (`ACTION_DELETE`, permission `REQUEST_DELETE_PACKAGES`) ou renvoi vers la fiche système de l'app (aucune permission) | 1 | — |
