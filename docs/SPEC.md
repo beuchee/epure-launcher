@@ -14,6 +14,7 @@
 > - 0.7 (22/10/2026) : libellé « Apps » rétabli en bas à gauche de l'accueil (DEC-0015) ; le balayage reste.
 > - 0.8 (22/10/2026) : statistiques du jalon 3 : aujourd'hui seulement, pas d'historique, regroupement de 5 secondes, pas d'indicateur d'accueil, demande d'accès au premier usage (DEC-0016).
 > - 0.9 (22/10/2026) : comportement normal des statistiques noté dans F-3.2 (temps compté à la sortie du premier plan ; musique en arrière-plan non comptée).
+> - 0.11 (24/10/2026) : permission `REQUEST_DELETE_PACKAGES` retirée du tableau § 8 (D31 tranchée : fiche système, DEC-0009) ; D31 marquée tranchée au § 12.
 > - 0.10 (24/10/2026) : index alphabétique retenu (DEC-0017) ; D16 à D20 tranchés (DEC-0018) ; durée maximale du blocage fixée à 7 jours (D30, DEC-0019) ; clé des noms personnalisés sans profil, comme DEC-0010 (DEC-0020).
 
 ---
@@ -348,7 +349,6 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 |---|---|---|---|---|
 | `<queries>` intent `MAIN`/`LAUNCHER` | Déclaration manifeste | Liste des apps | 1 | Automatique |
 | Rôle `HOME` | Rôle | Être le launcher | 1 | Choix utilisateur |
-| `REQUEST_DELETE_PACKAGES` | Normale (à l'installation) | Action « Désinstaller » directe (T-2) | 1 | Automatique — **uniquement si D31 retient l'intent direct** |
 | `PACKAGE_USAGE_STATS` | Spéciale | Statistiques (et indicateur D26 éventuel) | 3 | Réglage système (T-1) |
 | Service d'accessibilité (`BIND_ACCESSIBILITY_SERVICE`) | Service lié | Minuteur, blocages | 4 | Réglage accessibilité (T-1) |
 | Exclusion de l'optimisation de batterie | Réglage | Fiabilité du jalon 4 | 4 | Réglage One UI (simple lien, D20, DEC-0018) |
@@ -426,4 +426,4 @@ Non retenues (absentes des fonctions retenues ; à ne pas implémenter sauf déc
 | D28 | Pictogrammes d'interface (loupe, paramètres) ou texte seul (**tranchée : DEC-0003**) | 1 | Référence : loupe et roue dentée |
 | D29 | Moment des demandes d'autorisation : à l'usage ou assistant initial (**tranchée : DEC-0016** : à l'usage) | 3 | Référence : assistant en étapes ; recommandation : à l'usage |
 | D30 | Durée maximale et durées proposées pour le blocage prolongé (**tranchée : DEC-0019**) | 4 | Référence : jusqu'à 30 jours |
-| D31 | « Désinstaller » : intent direct (`ACTION_DELETE`, permission `REQUEST_DELETE_PACKAGES`) ou renvoi vers la fiche système de l'app (aucune permission) | 1 | — |
+| D31 | « Désinstaller » : intent direct (`ACTION_DELETE`, permission `REQUEST_DELETE_PACKAGES`) ou renvoi vers la fiche système de l'app (aucune permission) (**tranchée : DEC-0003, puis DEC-0009** : fiche système, aucune permission) | 1 | — |
