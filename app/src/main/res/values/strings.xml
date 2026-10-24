@@ -3,6 +3,8 @@
     <string name="home_apps">apps</string>
     <string name="search_hint">Rechercher</string>
     <string name="no_app_found">Aucune app</string>
+    <string name="index_go_to">Aller à la lettre %1$s</string>
+    <string name="index_go_other">Aller aux chiffres et symboles</string>
     <string name="favorites_empty">Appui long sur une app pour l\'ajouter ici</string>
     <string name="favorites_full">Maximum %1$d favoris</string>
     <string name="action_app_info">Infos de l\'app</string>

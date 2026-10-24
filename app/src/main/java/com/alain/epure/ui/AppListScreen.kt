@@ -4,12 +4,14 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -30,11 +33,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.alain.epure.R
+import com.alain.epure.domain.AlphabetIndex
 import com.alain.epure.domain.LaunchableApp
 import com.alain.epure.ui.theme.AppNameStyle
 import com.alain.epure.ui.theme.LabelStyle
 import com.alain.epure.ui.theme.TextPrimary
 import com.alain.epure.ui.theme.TextSecondary
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppListScreen(
@@ -46,6 +51,9 @@ fun AppListScreen(
     val results by viewModel.results.collectAsState()
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    val letters = remember(results) { AlphabetIndex.letters(results) }
 
     // The search field is focused and the keyboard opens as soon as the list appears.
     LaunchedEffect(Unit) {
@@ -94,20 +102,33 @@ fun AppListScreen(
             )
         }
 
-        LazyColumn(Modifier.weight(1f)) {
-            items(results, key = { it.key }) { app ->
-                Text(
-                    text = app.label,
-                    style = AppNameStyle,
-                    color = TextPrimary,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 48.dp)
-                        .combinedClickable(
-                            onClick = { viewModel.launch(app) },
-                            onLongClick = { onLongPress(app) }
-                        )
-                        .padding(vertical = 4.dp)
+        Row(Modifier.weight(1f)) {
+            LazyColumn(Modifier.weight(1f), state = listState) {
+                items(results, key = { it.key }) { app ->
+                    Text(
+                        text = app.label,
+                        style = AppNameStyle,
+                        color = TextPrimary,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 48.dp)
+                            .combinedClickable(
+                                onClick = { viewModel.launch(app) },
+                                onLongClick = { onLongPress(app) }
+                            )
+                            .padding(vertical = 4.dp)
+                    )
+                }
+            }
+
+            // Hidden while searching (F-1.4).
+            if (query.isBlank()) {
+                LetterIndex(
+                    letters = letters,
+                    onLetterSelected = { letter ->
+                        val position = AlphabetIndex.firstIndexOf(results, letter)
+                        if (position >= 0) scope.launch { listState.scrollToItem(position) }
+                    }
                 )
             }
         }
